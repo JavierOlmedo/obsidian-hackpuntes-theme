@@ -1,0 +1,36 @@
+name: Release
+
+# Push a tag equal to the version in manifest.json (for example 1.0.1) and this
+# workflow publishes the GitHub release with manifest.json and theme.css, which
+# is what Obsidian downloads.
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check that the tag matches manifest.json
+        run: |
+          version=$(jq -r .version manifest.json)
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match manifest.json version $version"
+            exit 1
+          fi
+
+      - name: Check that theme.css was rebuilt from src
+        run: |
+          python3 src/build.py
+          git diff --exit-code theme.css
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" manifest.json theme.css --title "$GITHUB_REF_NAME" --generate-notes

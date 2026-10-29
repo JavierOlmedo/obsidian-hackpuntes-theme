@@ -1,0 +1,718 @@
+/* ==========================================================================
+   Hackpuntes - an Obsidian theme
+   --------------------------------------------------------------------------
+   Dark hacker palette from hackpuntes.com: background #0d1117, teal accent
+   #00e5be, text #adbac7 and JetBrains Mono everywhere. Includes a light mode.
+
+   - The accent follows Settings > Appearance > Accent color (--color-accent).
+   - Options live in Settings > Style Settings > Hackpuntes (requires the
+     Style Settings plugin; the theme works fine without it).
+   - JetBrains Mono is embedded at the END of this file (SIL OFL 1.1), so the
+     theme looks the same on desktop and mobile without installing anything.
+   - Edit src/theme.src.css and run `python src/build.py`; theme.css is
+     generated.
+   ========================================================================== */
+
+/* @settings
+
+name: Hackpuntes
+id: hackpuntes-theme
+settings:
+    -
+        id: hp-fonts
+        title: Fonts
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-sans
+        title: Sans-serif note text
+        description: Everything uses JetBrains Mono by default, like hackpuntes.com. Turn this on to read notes in a sans-serif font and keep monospace for code.
+        type: class-toggle
+        default: false
+    -
+        id: hp-sans-ui
+        title: Sans-serif interface
+        description: Sidebars, tabs and menus in a sans-serif font (fits more text in narrow panes).
+        type: class-toggle
+        default: false
+    -
+        id: hp-ligatures
+        title: JetBrains Mono ligatures (->, =>, !=)
+        description: Off by default so commands look exactly as typed.
+        type: class-toggle
+        default: false
+    -
+        id: hp-effects
+        title: Effects
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-no-glow
+        title: Disable heading glow
+        type: class-toggle
+        default: false
+    -
+        id: hp-no-cursor
+        title: Disable the blinking cursor after the note title
+        description: Only visible with "Show inline title" enabled (Settings > Appearance).
+        type: class-toggle
+        default: false
+    -
+        id: hp-scanlines
+        title: CRT scanlines
+        type: class-toggle
+        default: false
+    -
+        id: hp-panels
+        title: Sidebars
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: hp-left-sidebar-min
+        title: Minimum left sidebar width
+        description: 0 = no minimum. Handy if Obsidian shrinks the sidebars on startup.
+        type: variable-number
+        default: 0
+        format: px
+    -
+        id: hp-right-sidebar-min
+        title: Minimum right sidebar width
+        description: 0 = no minimum.
+        type: variable-number
+        default: 0
+        format: px
+
+*/
+
+/* ── 1. Fonts and sizes ─────────────────────────────────────────────── */
+body {
+  --hp-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
+  --hp-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+  --font-text-theme: var(--hp-mono);
+  --font-interface-theme: var(--hp-mono);
+  --font-monospace-theme: var(--hp-mono);
+  --line-height-normal: 1.65;
+
+  --h1-size: 1.75em;
+  --h2-size: 1.45em;
+  --h3-size: 1.25em;
+  --h4-size: 1.1em;
+  --h5-size: 1em;
+  --h6-size: 0.95em;
+  --h1-weight: 800;
+  --h2-weight: 700;
+  --h3-weight: 700;
+  --h4-weight: 600;
+  --h5-weight: 600;
+  --h6-weight: 600;
+  --heading-spacing: 1.6em;
+  --inline-title-size: 1.9em;
+  --inline-title-weight: 800;
+
+  --bold-weight: 700;
+  --code-size: 0.9em;
+  --blockquote-border-thickness: 4px;
+  --tag-border-width: 1px;
+  --tag-radius: 4px;
+  --nav-indentation-guide-width: 1px;
+  --indentation-guide-width: 1px;
+  --hp-radius: 6px;
+}
+
+body.hp-sans {
+  --font-text-theme: var(--hp-sans);
+}
+
+body.hp-sans-ui {
+  --font-interface-theme: var(--hp-sans);
+}
+
+/* No ligatures: commands look exactly as typed */
+body:not(.hp-ligatures) {
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0;
+}
+
+/* ── 2. Dark palette (hackpuntes dark) ───────────────────────────────── */
+.theme-dark {
+  --accent-h: 170;
+  --accent-s: 100%;
+  --accent-l: 45%;
+
+  --hp-bg: #0d1117;
+  --hp-sidebar: #090c10;
+  --hp-surface: #161b22;
+  --hp-code-bg: #161b22;
+  --hp-border: #21262d;
+  --hp-border-2: #30363d;
+  --hp-text: #adbac7;
+  --hp-text-strong: #e6edf3;
+  --hp-muted: #768390;
+  --hp-faint: #545d68;
+  --hp-meta: #58a6a6;
+  --hp-red: #ff5555;
+  --hp-accent-line: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --hp-code-border: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  --hp-glow: color-mix(in srgb, var(--color-accent) 35%, transparent);
+
+  --color-base-00: #0d1117;
+  --color-base-05: #11161d;
+  --color-base-10: #161b22;
+  --color-base-20: #1a2029;
+  --color-base-25: #21262d;
+  --color-base-30: #30363d;
+  --color-base-35: #3d444d;
+  --color-base-40: #545d68;
+  --color-base-50: #636e7b;
+  --color-base-60: #768390;
+  --color-base-70: #adbac7;
+  --color-base-100: #e6edf3;
+
+  --color-red-rgb: 255, 123, 114;      --color-red: #ff7b72;
+  --color-orange-rgb: 255, 166, 87;    --color-orange: #ffa657;
+  --color-yellow-rgb: 227, 179, 65;    --color-yellow: #e3b341;
+  --color-green-rgb: 63, 185, 80;      --color-green: #3fb950;
+  --color-cyan-rgb: 57, 197, 207;      --color-cyan: #39c5cf;
+  --color-blue-rgb: 88, 166, 255;      --color-blue: #58a6ff;
+  --color-purple-rgb: 188, 140, 255;   --color-purple: #bc8cff;
+  --color-pink-rgb: 247, 120, 186;     --color-pink: #f778ba;
+  --callout-default: 0, 229, 190;
+
+  --background-primary: var(--hp-bg);
+  --background-primary-alt: var(--hp-surface);
+  --background-secondary: var(--hp-sidebar);
+  --background-secondary-alt: var(--hp-bg);
+  --background-modifier-border: var(--hp-border);
+  --background-modifier-border-hover: var(--hp-border-2);
+  --background-modifier-border-focus: var(--color-accent);
+  --background-modifier-hover: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  --background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --background-modifier-form-field: var(--hp-bg);
+
+  --text-normal: var(--hp-text);
+  --text-muted: var(--hp-muted);
+  --text-faint: var(--hp-faint);
+  --text-accent: var(--color-accent);
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
+  --text-on-accent: #0d1117;
+  --text-on-accent-inverted: #0d1117;
+  --text-error: var(--hp-red);
+  --text-selection: color-mix(in srgb, var(--color-accent) 25%, transparent);
+  --text-highlight-bg: rgba(227, 179, 65, 0.28);
+  --text-highlight-bg-active: rgba(255, 166, 87, 0.45);
+  --caret-color: var(--color-accent);
+
+  --interactive-normal: var(--hp-surface);
+  --interactive-hover: var(--hp-border);
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
+
+  --titlebar-background: var(--hp-sidebar);
+  --titlebar-background-focused: var(--hp-sidebar);
+  --ribbon-background: var(--hp-sidebar);
+  --ribbon-background-collapsed: var(--hp-sidebar);
+  --tab-container-background: var(--hp-sidebar);
+  --tab-background-active: var(--hp-bg);
+  --tab-text-color-focused-active: var(--color-accent);
+  --tab-text-color-focused-active-current: var(--color-accent);
+  --tab-outline-color: var(--hp-border);
+  --divider-color: var(--hp-border);
+  --status-bar-background: var(--hp-sidebar);
+  --status-bar-border-color: var(--hp-border);
+  --status-bar-text-color: var(--hp-meta);
+
+  --h1-color: var(--color-accent);
+  --h2-color: var(--color-accent);
+  --h3-color: hsl(var(--accent-h), 70%, 52%);
+  --h4-color: var(--hp-meta);
+  --h5-color: var(--hp-text-strong);
+  --h6-color: var(--hp-muted);
+  --inline-title-color: var(--color-accent);
+  --bold-color: var(--hp-text-strong);
+  --italic-color: #cdd9e5;
+
+  --link-color: var(--color-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--color-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  --link-unresolved-color: var(--hp-red);
+  --link-unresolved-opacity: 0.8;
+  --link-unresolved-decoration-color: color-mix(in srgb, var(--hp-red) 40%, transparent);
+  --link-decoration: none;
+  --link-decoration-hover: underline;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: underline;
+
+  --code-background: var(--hp-code-bg);
+  --code-normal: #c9d1d9;
+  --code-comment: #768390;
+  --code-function: #d2a8ff;
+  --code-important: #ffa657;
+  --code-keyword: #ff7b72;
+  --code-operator: var(--color-accent);
+  --code-property: #79c0ff;
+  --code-punctuation: #8b949e;
+  --code-string: #a5d6ff;
+  --code-tag: #7ee787;
+  --code-value: #79c0ff;
+  --hp-inline-code: var(--color-accent);
+
+  --blockquote-border-color: var(--color-accent);
+  --blockquote-color: var(--hp-muted);
+  --blockquote-background-color: color-mix(in srgb, var(--color-accent) 4%, transparent);
+
+  --table-header-background: var(--hp-surface);
+  --table-header-background-hover: var(--hp-surface);
+  --table-header-color: var(--color-accent);
+  --table-border-color: var(--hp-border);
+  --table-row-background-hover: color-mix(in srgb, var(--color-accent) 4%, transparent);
+
+  --hr-color: var(--hp-accent-line);
+  --list-marker-color: var(--color-accent);
+  --list-marker-color-hover: var(--text-accent-hover);
+  --indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --indentation-guide-color-active: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  --nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+
+  --tag-color: var(--color-accent);
+  --tag-color-hover: var(--text-accent-hover);
+  --tag-background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  --tag-background-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  --tag-border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
+  --tag-border-color-hover: color-mix(in srgb, var(--color-accent) 45%, transparent);
+
+  --checkbox-color: var(--color-accent);
+  --checkbox-color-hover: var(--text-accent-hover);
+  --checkbox-border-color: var(--hp-faint);
+  --checkbox-border-color-hover: var(--color-accent);
+  --checkbox-marker-color: #0d1117;
+
+  --nav-item-color: var(--hp-text);
+  --nav-item-color-hover: var(--hp-text-strong);
+  --nav-item-color-active: var(--color-accent);
+  --nav-item-color-selected: var(--hp-text-strong);
+  --nav-item-background-hover: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  --nav-item-background-active: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  --nav-item-background-selected: color-mix(in srgb, var(--color-accent) 18%, transparent);
+
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --scrollbar-active-thumb-bg: color-mix(in srgb, var(--color-accent) 60%, transparent);
+
+  --embed-border-left: 2px solid var(--hp-accent-line);
+  --embed-border-start: 2px solid var(--hp-accent-line);
+
+  --graph-node: var(--hp-muted);
+  --graph-node-focused: var(--color-accent);
+  --graph-node-tag: #ffa657;
+  --graph-node-attachment: #58a6ff;
+  --graph-node-unresolved: var(--hp-faint);
+  --graph-line: var(--hp-border-2);
+
+  --canvas-background: var(--hp-bg);
+  --canvas-dot-pattern: var(--hp-border-2);
+}
+
+/* ── 3. Light palette (hackpuntes light) ───────────────────────────────── */
+.theme-light {
+  --accent-h: 168;
+  --accent-s: 100%;
+  --accent-l: 36%;
+
+  --hp-bg: #ffffff;
+  --hp-sidebar: #f6f8fa;
+  --hp-surface: #f0f6fc;
+  --hp-code-bg: #f6f8fa;
+  --hp-border: #d0d7de;
+  --hp-border-2: #b8c0c8;
+  --hp-text: #2d3640;
+  --hp-text-strong: #0d1117;
+  --hp-muted: #57606a;
+  --hp-faint: #8c959f;
+  --hp-meta: #3d7f7f;
+  --hp-red: #cf222e;
+  --hp-accent-line: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  --hp-code-border: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  --hp-glow: transparent;
+
+  --color-base-00: #ffffff;
+  --color-base-05: #fbfcfd;
+  --color-base-10: #f6f8fa;
+  --color-base-20: #f0f3f6;
+  --color-base-25: #e6ebf0;
+  --color-base-30: #d0d7de;
+  --color-base-35: #b8c0c8;
+  --color-base-40: #8c959f;
+  --color-base-50: #6e7781;
+  --color-base-60: #57606a;
+  --color-base-70: #424a53;
+  --color-base-100: #2d3640;
+
+  --color-red-rgb: 207, 34, 46;        --color-red: #cf222e;
+  --color-orange-rgb: 188, 76, 0;      --color-orange: #bc4c00;
+  --color-yellow-rgb: 154, 103, 0;     --color-yellow: #9a6700;
+  --color-green-rgb: 26, 127, 55;      --color-green: #1a7f37;
+  --color-cyan-rgb: 27, 124, 131;      --color-cyan: #1b7c83;
+  --color-blue-rgb: 9, 105, 218;       --color-blue: #0969da;
+  --color-purple-rgb: 130, 80, 223;    --color-purple: #8250df;
+  --color-pink-rgb: 191, 57, 137;      --color-pink: #bf3989;
+  --callout-default: 0, 184, 148;
+
+  --background-primary: var(--hp-bg);
+  --background-primary-alt: var(--hp-surface);
+  --background-secondary: var(--hp-sidebar);
+  --background-secondary-alt: var(--hp-surface);
+  --background-modifier-border: var(--hp-border);
+  --background-modifier-border-focus: var(--color-accent);
+  --background-modifier-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  --background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
+
+  --text-normal: var(--hp-text);
+  --text-muted: var(--hp-muted);
+  --text-faint: var(--hp-faint);
+  --hp-heading: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 6%));
+  --text-accent: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
+  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 14%));
+  --text-on-accent: #0d1117;
+  --text-error: var(--hp-red);
+  --text-selection: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --text-highlight-bg: rgba(255, 211, 61, 0.45);
+  --caret-color: var(--text-accent);
+
+  --interactive-accent: var(--color-accent);
+  --titlebar-background: var(--hp-sidebar);
+  --titlebar-background-focused: var(--hp-sidebar);
+  --tab-container-background: var(--hp-sidebar);
+  --tab-background-active: var(--hp-bg);
+  --tab-text-color-focused-active: var(--text-accent);
+  --tab-text-color-focused-active-current: var(--text-accent);
+  --status-bar-background: var(--hp-sidebar);
+  --status-bar-text-color: var(--hp-meta);
+
+  --h1-color: var(--hp-heading);
+  --h2-color: var(--hp-heading);
+  --h3-color: hsl(var(--accent-h), 70%, 30%);
+  --h4-color: var(--hp-meta);
+  --h5-color: var(--hp-text-strong);
+  --h6-color: var(--hp-muted);
+  --inline-title-color: var(--hp-heading);
+  --bold-color: var(--hp-text-strong);
+
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--text-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  --link-unresolved-color: var(--hp-red);
+  --link-decoration: none;
+  --link-decoration-hover: underline;
+  --link-external-decoration: none;
+  --link-external-decoration-hover: underline;
+
+  --code-background: var(--hp-code-bg);
+  --code-normal: #24292f;
+  --code-comment: #6e7781;
+  --code-function: #8250df;
+  --code-important: #bc4c00;
+  --code-keyword: #cf222e;
+  --code-operator: #00866b;
+  --code-property: #0550ae;
+  --code-punctuation: #57606a;
+  --code-string: #0a3069;
+  --code-tag: #116329;
+  --code-value: #0550ae;
+  --hp-inline-code: #1e3a3a;
+
+  --blockquote-border-color: var(--color-accent);
+  --blockquote-color: #3d4f5a;
+  --blockquote-background-color: #e8faf7;
+
+  --table-header-background: #e8faf7;
+  --table-header-color: var(--text-accent);
+  --table-border-color: var(--hp-border);
+  --table-row-background-hover: color-mix(in srgb, var(--color-accent) 5%, transparent);
+
+  --hr-color: var(--hp-accent-line);
+  --list-marker-color: var(--text-accent);
+  --indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  --nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+
+  --tag-color: var(--text-accent);
+  --tag-background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  --tag-background-hover: color-mix(in srgb, var(--color-accent) 16%, transparent);
+  --tag-border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+
+  --checkbox-color: var(--color-accent);
+  --checkbox-marker-color: #ffffff;
+
+  --nav-item-color-active: var(--text-accent);
+  --nav-item-background-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  --nav-item-background-active: color-mix(in srgb, var(--color-accent) 14%, transparent);
+
+  --scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  --scrollbar-active-thumb-bg: var(--color-accent);
+  --embed-border-left: 2px solid var(--hp-accent-line);
+  --embed-border-start: 2px solid var(--hp-accent-line);
+}
+
+/* ── 4. Headings: teal with glow, like hackpuntes.com ────────────────────── */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+.markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6),
+.inline-title {
+  letter-spacing: 0.02em;
+}
+
+.theme-dark:not(.hp-no-glow) .markdown-rendered :is(h1, h2),
+.theme-dark:not(.hp-no-glow) .markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2):not(.cm-formatting),
+.theme-dark:not(.hp-no-glow) .inline-title {
+  text-shadow: 0 0 8px var(--hp-glow);
+}
+
+.theme-dark:not(.hp-no-glow) .markdown-rendered h3,
+.theme-dark:not(.hp-no-glow) .markdown-source-view.mod-cm6 .cm-header-3:not(.cm-formatting) {
+  text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
+/* Thin rule under H1/H2 to split long notes */
+.markdown-rendered h1,
+.markdown-rendered h2 {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--hp-accent-line);
+}
+
+.markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2) {
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid var(--hp-accent-line);
+}
+
+/* Blinking █ cursor after the note title (like the blog posts) */
+body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
+  content: "\2588";
+  color: var(--color-accent);
+  margin-left: 6px;
+  font-weight: 400;
+  opacity: 0.85;
+  animation: hp-blink 1.1s step-end infinite;
+}
+
+@keyframes hp-blink {
+  50% { opacity: 0; }
+}
+
+/* ── 5. Code blocks: teal border and soft glow ────────────────────── */
+.markdown-rendered pre {
+  border: 1px solid var(--hp-code-border);
+  border-radius: var(--hp-radius);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.markdown-rendered pre code {
+  color: var(--code-normal);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
+  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 1px 0 var(--hp-code-border);
+  border-top-left-radius: var(--hp-radius);
+  border-top-right-radius: var(--hp-radius);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
+  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 -1px 0 var(--hp-code-border);
+  border-bottom-left-radius: var(--hp-radius);
+  border-bottom-right-radius: var(--hp-radius);
+}
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin.HyperMD-codeblock-end {
+  box-shadow: inset 0 0 0 1px var(--hp-code-border);
+}
+
+/* Copy button and language label */
+.markdown-rendered pre .copy-code-button,
+.markdown-source-view.mod-cm6 .code-block-flair {
+  color: var(--color-accent);
+}
+
+.markdown-rendered pre .copy-code-button:hover {
+  background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
+}
+
+/* Inline code: teal on a very soft teal background */
+.markdown-rendered :not(pre) > code {
+  color: var(--hp-inline-code);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+
+.markdown-source-view.mod-cm6 .cm-inline-code {
+  color: var(--hp-inline-code);
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.markdown-source-view.mod-cm6 .cm-inline-code.cm-formatting-code {
+  color: var(--text-faint);
+}
+
+/* <kbd> keys */
+.markdown-rendered kbd {
+  font-family: var(--font-monospace);
+  color: var(--color-accent);
+  background: var(--hp-surface);
+  border: 1px solid var(--hp-border-2);
+  border-bottom-width: 3px;
+  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  font-size: 0.85em;
+}
+
+/* ── 6. Quotes, tables, highlights ─────────────────────────────────────── */
+.markdown-rendered blockquote {
+  border-radius: 0 4px 4px 0;
+  padding: 0.6em 1em;
+}
+
+.markdown-rendered table {
+  border-radius: var(--hp-radius);
+}
+
+.markdown-rendered thead th {
+  border-bottom: 1px solid var(--hp-accent-line);
+  font-weight: 700;
+}
+
+.markdown-rendered mark,
+.markdown-source-view.mod-cm6 .cm-highlight {
+  color: var(--hp-text-strong);
+  border-radius: 2px;
+}
+
+/* Very subtle active line in the editor */
+.markdown-source-view.mod-cm6 .cm-line.cm-active:not(.HyperMD-codeblock) {
+  background-color: color-mix(in srgb, var(--color-accent) 3%, transparent);
+}
+
+.markdown-source-view.mod-cm6 .cm-cursor {
+  border-left-width: 2px;
+}
+
+/* Callouts with a thin border in their own color */
+.callout {
+  border: 1px solid rgba(var(--callout-color), 0.25);
+  border-left-width: 3px;
+}
+
+/* ── 7. File explorer: teal bar on hover ──── */
+.nav-files-container > div > .nav-folder > .nav-folder-title {
+  color: var(--hp-text-strong);
+  font-weight: 600;
+}
+
+.nav-file-title,
+.nav-folder-title {
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-file-title:hover,
+.nav-folder-title:hover {
+  box-shadow: inset 2px 0 0 var(--hp-accent-line);
+}
+
+.nav-file-title.is-active {
+  box-shadow: inset 2px 0 0 var(--color-accent);
+}
+
+.theme-dark .nav-file-title.is-active {
+  text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 30%, transparent);
+}
+
+/* ── 8. Outline pane ────────────────────────────────────── */
+.workspace-leaf-content[data-type="outline"] .tree-item-self {
+  border-radius: 4px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+/* Top-level headings stand out from nested ones */
+.workspace-leaf-content[data-type="outline"] div:not(.tree-item-children) > .tree-item > .tree-item-self {
+  color: var(--hp-text-strong);
+  font-weight: 600;
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-children .tree-item-self {
+  color: var(--text-muted);
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self:hover {
+  color: var(--hp-text-strong);
+  box-shadow: inset 2px 0 0 var(--hp-accent-line);
+}
+
+.workspace-leaf-content[data-type="outline"] .tree-item-self.is-active {
+  color: var(--color-accent);
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  box-shadow: inset 2px 0 0 var(--color-accent);
+}
+
+/* Optional minimum sidebar width (desktop, expanded only) */
+body:not(.is-mobile) .workspace-split.mod-sidedock.mod-left-split:not(.is-sidedock-collapsed) {
+  min-width: var(--hp-left-sidebar-min, 0px);
+}
+
+body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sidedock-collapsed) {
+  min-width: var(--hp-right-sidebar-min, 0px);
+}
+
+/* ── 9. Tabs, command palette and modals ───────────────────────── */
+.workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: inset 0 2px 0 var(--hp-accent-line);
+}
+
+.mod-root .workspace-tab-header.is-active.mod-active .workspace-tab-header-inner,
+.workspace-tabs.mod-active .workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: inset 0 2px 0 var(--color-accent);
+}
+
+.theme-dark .modal,
+.theme-dark .prompt {
+  border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 24px color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.suggestion-item.is-selected {
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  box-shadow: inset 2px 0 0 var(--color-accent);
+}
+
+.theme-dark .menu {
+  border-color: var(--hp-border-2);
+}
+
+/* ── 10. CRT scanlines (optional) ─────────────────────────────────────── */
+body.theme-dark.hp-scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+}
+
+/* ── 11. Embedded JetBrains Mono ───────────────────────────────────────
+   JetBrains Mono v2.304, variable weight 100-800, normal and italic.
+   Copyright 2020 The JetBrains Mono Project Authors
+   (https://github.com/JetBrains/JetBrainsMono), licensed under the
+   SIL Open Font License 1.1 (see src/fonts/OFL.txt and https://openfontlicense.org).
+   Generated by src/build.py from the official woff2 files; do not edit by hand. */
