@@ -18,16 +18,15 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 
 ## 📸 Screenshots
 
+### 🖥️ Desktop
+
 | Dark | Light |
 | ---- | ----- |
 | ![Dark](images/dark.png) | ![Light](images/light.png) |
 
-<p align="center">
-  <img src="images/store/mobile-1-dark.png" width="200" alt="Mobile, dark">
-  <img src="images/store/mobile-2-light.png" width="200" alt="Mobile, light">
-  <img src="images/store/mobile-3-dark-code.png" width="200" alt="Mobile, code blocks and tables">
-  <img src="images/store/mobile-4-dark-files.png" width="200" alt="Mobile, file explorer">
-</p>
+### 📱 Mobile
+
+![Hackpuntes on mobile: dark, light, code blocks and the file explorer](images/mobile.png)
 
 ## 📦 Installation
 
