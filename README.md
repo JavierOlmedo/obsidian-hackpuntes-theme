@@ -22,6 +22,13 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 | ---- | ----- |
 | ![Dark](images/dark.png) | ![Light](images/light.png) |
 
+<p align="center">
+  <img src="images/store/mobile-1-dark.png" width="200" alt="Mobile, dark">
+  <img src="images/store/mobile-2-light.png" width="200" alt="Mobile, light">
+  <img src="images/store/mobile-3-dark-code.png" width="200" alt="Mobile, code blocks and tables">
+  <img src="images/store/mobile-4-dark-files.png" width="200" alt="Mobile, file explorer">
+</p>
+
 ## 📦 Installation
 
 **From Obsidian**: *Settings > Appearance > Themes > Manage*, search for **Hackpuntes** and select *Install and use*.
@@ -71,3 +78,7 @@ If Hackpuntes makes your notes nicer, you can buy me a coffee:
 
 - Theme by [Javier Olmedo](https://hackpuntes.com), released under the [MIT License](LICENSE).
 - [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) v2.304, Copyright 2020 The JetBrains Mono Project Authors, under the [SIL Open Font License 1.1](src/fonts/OFL.txt).
+
+<div align="center">
+    Made with ❤️ in Spain
+</div>
