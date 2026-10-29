@@ -9,6 +9,8 @@
      Style Settings plugin; the theme works fine without it).
    - JetBrains Mono is embedded at the END of this file (SIL OFL 1.1), so the
      theme looks the same on desktop and mobile without installing anything.
+     It is subset to Latin, punctuation, arrows and box drawing, without
+     ligatures, to keep theme.css small (src/subset_fonts.py).
    - Edit src/theme.src.css and run `python src/build.py`; theme.css is
      generated.
    ========================================================================== */
@@ -34,12 +36,6 @@ settings:
         id: hp-sans-ui
         title: Sans-serif interface
         description: Sidebars, tabs and menus in a sans-serif font (fits more text in narrow panes).
-        type: class-toggle
-        default: false
-    -
-        id: hp-ligatures
-        title: JetBrains Mono ligatures (->, =>, !=)
-        description: Off by default so commands look exactly as typed.
         type: class-toggle
         default: false
     -
@@ -131,8 +127,8 @@ body.hp-sans-ui {
   --font-interface-theme: var(--hp-sans);
 }
 
-/* No ligatures: commands look exactly as typed */
-body:not(.hp-ligatures) {
+/* No ligatures (also for fallback fonts like Cascadia Code): commands look exactly as typed */
+body {
   font-variant-ligatures: none;
   font-feature-settings: "calt" 0, "liga" 0;
 }
@@ -711,7 +707,8 @@ body.theme-dark.hp-scanlines::after {
 }
 
 /* ── 11. Embedded JetBrains Mono ───────────────────────────────────────
-   JetBrains Mono v2.304, variable weight 100-800, normal and italic.
+   JetBrains Mono v2.304, variable weight 100-800, normal and italic, subset
+   by src/subset_fonts.py (Latin, punctuation, arrows, box drawing, no ligatures).
    Copyright 2020 The JetBrains Mono Project Authors
    (https://github.com/JetBrains/JetBrainsMono), licensed under the
    SIL Open Font License 1.1 (see src/fonts/OFL.txt and https://openfontlicense.org).

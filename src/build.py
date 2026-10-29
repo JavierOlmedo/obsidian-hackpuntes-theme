@@ -1,4 +1,6 @@
-"""Build theme.css from src/theme.src.css, embedding JetBrains Mono (woff2, base64) at the end.
+"""Build theme.css from src/theme.src.css, embedding the subset JetBrains Mono (woff2, base64) at the end.
+
+The fonts in src/fonts are made by src/subset_fonts.py.
 
 Usage: python src/build.py
 """
@@ -7,7 +9,7 @@ from pathlib import Path
 
 SRC = Path(__file__).resolve().parent
 ROOT = SRC.parent
-FONTS = (("normal", "JetBrainsMono-wght.woff2"), ("italic", "JetBrainsMono-Italic-wght.woff2"))
+FONTS = (("normal", "JetBrainsMono-wght-subset.woff2"), ("italic", "JetBrainsMono-Italic-wght-subset.woff2"))
 
 
 def main():

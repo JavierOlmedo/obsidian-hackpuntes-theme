@@ -7,7 +7,7 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 ## ✨ Features
 
 - 🎨 **Hackpuntes palette**: background `#0d1117`, accent `#00e5be`, text `#adbac7`, GitHub-style syntax colors.
-- 🔤 **JetBrains Mono embedded** in the theme, so it looks the same on desktop and mobile without installing fonts. Ligatures are off by default so commands look exactly as typed.
+- 🔤 **JetBrains Mono embedded** in the theme, so it looks the same on desktop and mobile without installing fonts. No ligatures, so commands look exactly as typed.
 - 💡 **Headings with a soft teal glow** and a thin rule under H1 and H2 to split long notes.
 - 💻 **Code blocks** with a teal border and glow, teal inline code and `<kbd>` keys.
 - 📋 **Tables, callouts, tags, checkboxes and quotes** styled to match.
@@ -36,7 +36,6 @@ With the [Style Settings](https://github.com/obsidian-community/obsidian-style-s
 | ------ | ------- |
 | Sans-serif note text | Off (everything in JetBrains Mono) |
 | Sans-serif interface | Off |
-| JetBrains Mono ligatures | Off |
 | Disable heading glow | Off |
 | Disable the blinking cursor after the note title (needs *Show inline title*) | Off |
 | CRT scanlines | Off |
@@ -52,7 +51,7 @@ The theme works fine without Style Settings; you just get the defaults.
 python src/build.py
 ```
 
-`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64.
+`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` around 100 KB.
 
 To publish a new version:
 
