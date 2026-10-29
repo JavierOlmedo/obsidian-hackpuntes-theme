@@ -62,6 +62,12 @@ To publish a new version:
 
 The [release workflow](.github/workflows/release.yml) checks that the tag matches `manifest.json` and that `theme.css` is up to date, then creates the GitHub release with `manifest.json` and `theme.css`, which is what Obsidian downloads.
 
+## ☕ Support
+
+If Hackpuntes makes your notes nicer, you can buy me a coffee:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-javierolmedo-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/javierolmedo)
+
 ## 📜 Credits and license
 
 - Theme by [Javier Olmedo](https://hackpuntes.com), released under the [MIT License](LICENSE).
