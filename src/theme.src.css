@@ -11,7 +11,8 @@
    - JetBrains Mono is embedded at the END of this file (SIL OFL 1.1), so the
      theme looks the same on desktop and mobile without installing anything.
      It is subset to Latin, punctuation, arrows and box drawing, without
-     ligatures, to keep theme.css small (src/subset_fonts.py).
+     ligatures and weights below 400, to keep theme.css small
+     (src/subset_fonts.py).
    - Edit src/theme.src.css and run `python src/build.py`; theme.css is
      generated.
    ========================================================================== */
@@ -820,10 +821,16 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
 :is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
     li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
     .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::after {
+  content: none;
+}
+
+/* Obsidian draws the tick in ::after (hidden above), the glyph goes in ::before */
+:is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
+    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::before {
   content: var(--hp-task-glyph, "\2022");
-  -webkit-mask-image: none;
-  background-color: transparent;
-  top: 0;
+  position: absolute;
+  inset: 0;
   color: var(--hp-task, var(--color-accent));
   font-family: var(--font-monospace);
   font-size: calc(var(--checkbox-size) * 0.72);
@@ -951,60 +958,81 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
 }
 
 /* ── 12. Mermaid diagrams in the theme colors ────────────────────────────
-   Flowcharts, sequence diagrams and mindmaps; other diagram types keep the
-   Obsidian look. Obsidian draws Mermaid in light colors and inverts them in
-   dark mode, and Mermaid sets its colors with id selectors inside each SVG,
-   hence filter: none and !important. */
+   Obsidian 1.15+ draws diagrams itself and reads these variables. */
+body {
+  --mermaid-surface: var(--hp-surface);
+  --mermaid-surface-alt: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
+  --mermaid-border-color: var(--color-accent);
+  --mermaid-line-color: var(--hp-muted);
+  --mermaid-text-color: var(--hp-text-strong);
+  --mermaid-muted-color: var(--hp-muted);
+  --mermaid-color-1: var(--color-blue);
+  --mermaid-color-2: var(--color-purple);
+  --mermaid-color-3: var(--color-pink);
+  --mermaid-color-4: var(--color-red);
+  --mermaid-color-5: var(--color-orange);
+  --mermaid-color-6: var(--color-yellow);
+  --mermaid-color-7: var(--color-green);
+  --mermaid-color-8: var(--color-cyan);
+}
+
+/* Up to 1.14 Obsidian uses Mermaid itself: the rules below cover flowcharts,
+   sequence diagrams and mindmaps, other diagram types keep the Obsidian look.
+   Mermaid is drawn in light colors and inverted in dark mode, hence
+   filter: none. It sets its colors with an id selector inside each SVG:
+   :is(.mermaid, #hp#hp) matches .mermaid but counts as two ids, so it wins
+   without important flags (inline styles from a diagram's own `style` lines
+   still win). */
 .theme-dark .mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) {
   filter: none;
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.node :is(rect, circle, ellipse, polygon, path), rect.actor, polygon.labelBox, rect[class^="activation"]) {
-  fill: var(--hp-surface) !important;
-  stroke: var(--color-accent) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.node :is(rect, circle, ellipse, polygon, path), rect.actor, polygon.labelBox, rect[class^="activation"]) {
+  fill: var(--hp-surface);
+  stroke: var(--color-accent);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) :is(.nodeLabel, .label) {
-  color: var(--hp-text-strong) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) :is(.nodeLabel, .label) {
+  color: var(--hp-text-strong);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(text.actor, .messageText, .noteText, .labelText, .loopText, :is(text.actor, .messageText, .noteText, .labelText, .loopText) > tspan) {
-  fill: var(--hp-text-strong) !important;
-  stroke: none !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(text.actor, .messageText, .noteText, .labelText, .loopText, :is(text.actor, .messageText, .noteText, .labelText, .loopText) > tspan) {
+  fill: var(--hp-text-strong);
+  stroke: none;
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.flowchart-link, .messageLine0, .messageLine1, .actor-line, .loopLine) {
-  stroke: var(--hp-muted) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.flowchart-link, .messageLine0, .messageLine1, .actor-line, .loopLine) {
+  stroke: var(--hp-muted);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) marker :is(path, circle) {
-  fill: var(--hp-muted) !important;
-  stroke: var(--hp-muted) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) marker :is(path, circle) {
+  fill: var(--hp-muted);
+  stroke: var(--hp-muted);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.edgeLabel, .labelBkg, .edgeLabel p) {
-  background-color: var(--hp-bg) !important;
-  color: var(--hp-text) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.edgeLabel, .labelBkg, .edgeLabel p) {
+  background-color: var(--hp-bg);
+  color: var(--hp-text);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .edgeLabel rect {
-  fill: var(--hp-bg) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .edgeLabel rect {
+  fill: var(--hp-bg);
 }
 
 /* Subgraphs */
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster rect {
-  fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg)) !important;
-  stroke: var(--hp-accent-line) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster rect {
+  fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
+  stroke: var(--hp-accent-line);
 }
 
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster-label .nodeLabel {
-  color: var(--color-accent) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster-label .nodeLabel {
+  color: var(--color-accent);
 }
 
 /* Sequence diagram notes */
-.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) rect.note {
-  fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg)) !important;
-  stroke: var(--color-yellow) !important;
+:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) rect.note {
+  fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg));
+  stroke: var(--color-yellow);
 }
 
 /* Mindmaps: one color per branch, root in the accent */
@@ -1017,13 +1045,13 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
 .mermaid :is(.section-6, .section-edge-6) { --hp-branch: var(--color-green); }
 .mermaid :is(.section-7, .section-edge-7) { --hp-branch: var(--color-cyan); }
 
-.mermaid > svg[aria-roledescription="mindmap"] .mindmap-node :is(rect, circle, ellipse, polygon, path) {
-  fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg)) !important;
-  stroke: var(--hp-branch, var(--color-accent)) !important;
+:is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] .mindmap-node :is(rect, circle, ellipse, polygon, path) {
+  fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg));
+  stroke: var(--hp-branch, var(--color-accent));
 }
 
-.mermaid > svg[aria-roledescription="mindmap"] :is(.mindmap-node line, path[class*="section-edge-"]) {
-  stroke: var(--hp-branch, var(--hp-muted)) !important;
+:is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] :is(.mindmap-node line, path[class*="section-edge-"]) {
+  stroke: var(--hp-branch, var(--hp-muted));
 }
 
 /* ── 13. PDFs (optional): dark pages in dark mode ────────────────────────── */
@@ -1055,7 +1083,7 @@ body.theme-dark.hp-scanlines::after {
 }
 
 /* ── 15. Embedded JetBrains Mono ───────────────────────────────────────
-   JetBrains Mono v2.304, variable weight 100-800, normal and italic, subset
+   JetBrains Mono v2.304, variable weight 400-800, normal and italic, subset
    by src/subset_fonts.py (Latin, punctuation, arrows, box drawing, no ligatures).
    Copyright 2020 The JetBrains Mono Project Authors
    (https://github.com/JetBrains/JetBrainsMono), licensed under the

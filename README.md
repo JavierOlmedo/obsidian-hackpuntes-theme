@@ -90,7 +90,7 @@ Any other character shows a dot in the accent color.
 python src/build.py
 ```
 
-`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` around 110 KB.
+`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, weights 400 to 800, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` under 100 KB.
 
 To publish a new version:
 
