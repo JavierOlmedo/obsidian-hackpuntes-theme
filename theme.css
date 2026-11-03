@@ -2,7 +2,8 @@
    Hackpuntes - an Obsidian theme
    --------------------------------------------------------------------------
    Dark hacker palette from hackpuntes.com: background #0d1117, teal accent
-   #00e5be, text #adbac7 and JetBrains Mono everywhere. Includes a light mode.
+   #00e5be, text #adbac7 and JetBrains Mono everywhere. Includes a light mode
+   and an optional pastel palette.
 
    - The accent follows Settings > Appearance > Accent color (--color-accent).
    - Options live in Settings > Style Settings > Hackpuntes (requires the
@@ -20,6 +21,26 @@
 name: Hackpuntes
 id: hackpuntes-theme
 settings:
+    -
+        id: hp-colors
+        title: Colors
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-palette
+        title: Palette
+        description: Hackpuntes is the teal on black of hackpuntes.com. Pastel uses soft colors on a blue-grey background, in dark and light mode. An accent color picked in Settings > Appearance still wins.
+        type: class-select
+        allowEmpty: false
+        default: hp-palette-hackpuntes
+        options:
+            -
+                label: Hackpuntes
+                value: hp-palette-hackpuntes
+            -
+                label: Pastel
+                value: hp-palette-pastel
     -
         id: hp-fonts
         title: Fonts
@@ -58,6 +79,30 @@ settings:
     -
         id: hp-scanlines
         title: CRT scanlines
+        type: class-toggle
+        default: false
+    -
+        id: hp-explorer
+        title: File explorer
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-numbered-folders
+        title: Color numbered folders
+        description: Top-level folders whose name starts with two digits (00_inbox, 01_recon, 02_enum...) get a color from their last digit, shared by their subfolders. Those ending in 9 (99_archive) are muted.
+        type: class-toggle
+        default: false
+    -
+        id: hp-pdf
+        title: PDF
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-pdf-dark
+        title: Dark PDF pages in dark mode
+        description: Inverts PDF pages so a white page doesn't glare in the dark theme. Images inside the PDF are inverted too.
         type: class-toggle
         default: false
     -
@@ -454,7 +499,141 @@ body {
   --embed-border-start: 2px solid var(--hp-accent-line);
 }
 
-/* ── 4. Headings: teal with glow, like hackpuntes.com ────────────────────── */
+/* ── 4. Pastel palette (optional) ──────────────────────────────────────────
+   Soft colors on blue-grey, with a lilac accent. Everything else in the theme
+   reads these variables, so only the colors change. */
+.theme-dark.hp-palette-pastel {
+  --accent-h: 267;
+  --accent-s: 84%;
+  --accent-l: 81%;
+
+  --hp-bg: #1e1e2e;
+  --hp-sidebar: #181825;
+  --hp-surface: #313244;
+  --hp-code-bg: #181825;
+  --hp-border: #313244;
+  --hp-border-2: #45475a;
+  --hp-text: #bac2de;
+  --hp-text-strong: #cdd6f4;
+  --hp-muted: #9399b2;
+  --hp-faint: #6c7086;
+  --hp-meta: #b4befe;
+  --hp-red: #f38ba8;
+  --hp-glow: color-mix(in srgb, var(--color-accent) 25%, transparent);
+
+  --color-base-00: #1e1e2e;
+  --color-base-05: #232334;
+  --color-base-10: #28293b;
+  --color-base-20: #2d2e41;
+  --color-base-25: #313244;
+  --color-base-30: #45475a;
+  --color-base-35: #585b70;
+  --color-base-40: #6c7086;
+  --color-base-50: #7f849c;
+  --color-base-60: #9399b2;
+  --color-base-70: #bac2de;
+  --color-base-100: #cdd6f4;
+
+  --color-red-rgb: 243, 139, 168;      --color-red: #f38ba8;
+  --color-orange-rgb: 250, 179, 135;   --color-orange: #fab387;
+  --color-yellow-rgb: 249, 226, 175;   --color-yellow: #f9e2af;
+  --color-green-rgb: 166, 227, 161;    --color-green: #a6e3a1;
+  --color-cyan-rgb: 148, 226, 213;     --color-cyan: #94e2d5;
+  --color-blue-rgb: 137, 180, 250;     --color-blue: #89b4fa;
+  --color-purple-rgb: 203, 166, 247;   --color-purple: #cba6f7;
+  --color-pink-rgb: 245, 194, 231;     --color-pink: #f5c2e7;
+  --callout-default: 203, 166, 247;
+
+  --interactive-hover: var(--hp-border-2);
+  --text-on-accent: #11111b;
+  --text-on-accent-inverted: #11111b;
+  --checkbox-marker-color: #11111b;
+  --text-highlight-bg: rgba(249, 226, 175, 0.25);
+  --text-highlight-bg-active: rgba(250, 179, 135, 0.4);
+
+  --h3-color: hsl(var(--accent-h), 70%, 76%);
+  --italic-color: var(--hp-text-strong);
+
+  --code-normal: #cdd6f4;
+  --code-comment: #9399b2;
+  --code-function: #89b4fa;
+  --code-important: #fab387;
+  --code-keyword: #cba6f7;
+  --code-operator: #89dceb;
+  --code-property: #b4befe;
+  --code-punctuation: #9399b2;
+  --code-string: #a6e3a1;
+  --code-tag: #f38ba8;
+  --code-value: #fab387;
+
+  --graph-node-tag: #fab387;
+  --graph-node-attachment: #89b4fa;
+}
+
+.theme-light.hp-palette-pastel {
+  --accent-h: 266;
+  --accent-s: 85%;
+  --accent-l: 58%;
+
+  --hp-bg: #eff1f5;
+  --hp-sidebar: #e6e9ef;
+  --hp-surface: #dce0e8;
+  --hp-code-bg: #e6e9ef;
+  --hp-border: #ccd0da;
+  --hp-border-2: #bcc0cc;
+  --hp-text: #5c5f77;
+  --hp-text-strong: #4c4f69;
+  --hp-muted: #6c6f85;
+  --hp-faint: #9ca0b0;
+  --hp-meta: #1e66f5;
+  --hp-red: #d20f39;
+
+  --color-base-00: #eff1f5;
+  --color-base-05: #eaedf2;
+  --color-base-10: #e6e9ef;
+  --color-base-20: #e1e4eb;
+  --color-base-25: #dce0e8;
+  --color-base-30: #ccd0da;
+  --color-base-35: #bcc0cc;
+  --color-base-40: #9ca0b0;
+  --color-base-50: #8c8fa1;
+  --color-base-60: #6c6f85;
+  --color-base-70: #5c5f77;
+  --color-base-100: #4c4f69;
+
+  --color-red-rgb: 210, 15, 57;        --color-red: #d20f39;
+  --color-orange-rgb: 254, 100, 11;    --color-orange: #fe640b;
+  --color-yellow-rgb: 223, 142, 29;    --color-yellow: #df8e1d;
+  --color-green-rgb: 64, 160, 43;      --color-green: #40a02b;
+  --color-cyan-rgb: 23, 146, 153;      --color-cyan: #179299;
+  --color-blue-rgb: 30, 102, 245;      --color-blue: #1e66f5;
+  --color-purple-rgb: 136, 57, 239;    --color-purple: #8839ef;
+  --color-pink-rgb: 234, 118, 203;     --color-pink: #ea76cb;
+  --callout-default: 136, 57, 239;
+
+  --text-on-accent: #eff1f5;
+  --text-highlight-bg: rgba(223, 142, 29, 0.25);
+
+  --blockquote-color: var(--hp-text);
+  --blockquote-background-color: color-mix(in srgb, var(--color-accent) 6%, var(--hp-bg));
+  --table-header-background: color-mix(in srgb, var(--color-accent) 8%, var(--hp-bg));
+  --hp-inline-code: var(--text-accent);
+
+  /* Darker than the pastel tones so code stays readable on a light background */
+  --code-normal: #4c4f69;
+  --code-comment: #7c7f93;
+  --code-function: #1e66f5;
+  --code-important: #c44f0a;
+  --code-keyword: #8839ef;
+  --code-operator: #13777d;
+  --code-property: #5466e0;
+  --code-punctuation: #7c7f93;
+  --code-string: #3d8a2a;
+  --code-tag: #d20f39;
+  --code-value: #c44f0a;
+}
+
+/* ── 5. Headings: teal with glow, like hackpuntes.com ────────────────────── */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
 .markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6),
 .inline-title {
@@ -498,7 +677,7 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   50% { opacity: 0; }
 }
 
-/* ── 5. Code blocks: teal border and soft glow ────────────────────── */
+/* ── 6. Code blocks: teal border and soft glow ────────────────────── */
 .markdown-rendered pre {
   border: 1px solid var(--hp-code-border);
   border-radius: var(--hp-radius);
@@ -569,7 +748,7 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   font-size: 0.85em;
 }
 
-/* ── 6. Quotes, tables, highlights ─────────────────────────────────────── */
+/* ── 7. Quotes, tables, highlights ─────────────────────────────────────── */
 .markdown-rendered blockquote {
   border-radius: 0 4px 4px 0;
   padding: 0.6em 1em;
@@ -605,7 +784,70 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   border-left-width: 3px;
 }
 
-/* ── 7. File explorer: teal bar on hover ──── */
+/* ── 8. Checkboxes: [!] [?] [/] [-] and friends ──────────────────────────
+   Any state other than [x] shows its character (or a symbol) in a box of its
+   own color, like [!] in a terminal. Obsidian puts data-task on the list item
+   (reading view) or on the line (editor), not on the checkbox itself. */
+:is(li, .HyperMD-task-line)[data-task] { --hp-task: initial; --hp-task-glyph: initial; }
+:is(li, .HyperMD-task-line)[data-task="!"] { --hp-task: var(--color-red); --hp-task-glyph: "!"; }
+:is(li, .HyperMD-task-line)[data-task="?"] { --hp-task: var(--color-yellow); --hp-task-glyph: "?"; }
+:is(li, .HyperMD-task-line)[data-task="/"] { --hp-task: var(--color-accent); --hp-task-glyph: ""; }
+:is(li, .HyperMD-task-line)[data-task="-"] { --hp-task: var(--text-faint); --hp-task-glyph: "\00D7"; }
+:is(li, .HyperMD-task-line)[data-task=">"] { --hp-task: var(--color-blue); --hp-task-glyph: "\2192"; }
+:is(li, .HyperMD-task-line)[data-task="<"] { --hp-task: var(--color-cyan); --hp-task-glyph: "\2190"; }
+:is(li, .HyperMD-task-line)[data-task="*"] { --hp-task: var(--color-yellow); --hp-task-glyph: "*"; }
+:is(li, .HyperMD-task-line)[data-task='"'] { --hp-task: var(--color-cyan); --hp-task-glyph: '"'; }
+:is(li, .HyperMD-task-line)[data-task="i"] { --hp-task: var(--color-blue); --hp-task-glyph: "i"; }
+:is(li, .HyperMD-task-line)[data-task="I"] { --hp-task: var(--color-yellow); --hp-task-glyph: "I"; }
+:is(li, .HyperMD-task-line)[data-task="b"] { --hp-task: var(--color-orange); --hp-task-glyph: "b"; }
+:is(li, .HyperMD-task-line)[data-task="l"] { --hp-task: var(--color-pink); --hp-task-glyph: "@"; }
+:is(li, .HyperMD-task-line)[data-task="k"] { --hp-task: var(--color-yellow); --hp-task-glyph: "k"; }
+:is(li, .HyperMD-task-line)[data-task="f"] { --hp-task: var(--color-orange); --hp-task-glyph: "f"; }
+:is(li, .HyperMD-task-line)[data-task="w"] { --hp-task: var(--color-purple); --hp-task-glyph: "w"; }
+:is(li, .HyperMD-task-line)[data-task="u"] { --hp-task: var(--color-green); --hp-task-glyph: "\2191"; }
+:is(li, .HyperMD-task-line)[data-task="d"] { --hp-task: var(--color-red); --hp-task-glyph: "\2193"; }
+:is(li, .HyperMD-task-line)[data-task="p"] { --hp-task: var(--color-green); --hp-task-glyph: "+"; }
+:is(li, .HyperMD-task-line)[data-task="c"] { --hp-task: var(--color-red); --hp-task-glyph: "\2212"; }
+:is(li, .HyperMD-task-line)[data-task="S"] { --hp-task: var(--color-green); --hp-task-glyph: "$"; }
+
+:is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
+    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked {
+  border-color: var(--hp-task, var(--color-accent));
+  background-color: color-mix(in srgb, var(--hp-task, var(--color-accent)) 18%, transparent);
+}
+
+:is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
+    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::after {
+  content: var(--hp-task-glyph, "\2022");
+  -webkit-mask-image: none;
+  background-color: transparent;
+  top: 0;
+  color: var(--hp-task, var(--color-accent));
+  font-family: var(--font-monospace);
+  font-size: calc(var(--checkbox-size) * 0.72);
+  font-weight: 800;
+  font-style: normal;
+  line-height: calc(var(--checkbox-size) - 2px);
+  text-align: center;
+}
+
+/* [/] in progress: half filled */
+:is(li[data-task="/"] > .task-list-item-checkbox,
+    li[data-task="/"] > p > .task-list-item-checkbox,
+    .HyperMD-task-line[data-task="/"] .task-list-item-checkbox):checked {
+  background-image: linear-gradient(to right, var(--hp-task) 50%, transparent 50%);
+}
+
+/* [-] cancelled: struck through like [x] */
+ul > li.task-list-item[data-task="-"],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="-"] {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}
+
+/* ── 9. File explorer: teal bar on hover ──── */
 .nav-files-container > div > .nav-folder > .nav-folder-title {
   color: var(--hp-text-strong);
   font-weight: 600;
@@ -629,7 +871,25 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
-/* ── 8. Outline pane ────────────────────────────────────── */
+/* Optional: top-level folders named 00_..99_ colored by their last digit
+   (data-path is the full path, so subfolders share the color) */
+body.hp-numbered-folders .nav-folder-title:is([data-path^="0"], [data-path^="1"], [data-path^="2"], [data-path^="3"], [data-path^="4"], [data-path^="5"], [data-path^="6"], [data-path^="7"], [data-path^="8"], [data-path^="9"]) {
+  --nav-collapse-icon-color: currentColor;
+  --nav-collapse-icon-color-collapsed: currentColor;
+}
+
+body.hp-numbered-folders .nav-folder-title:is([data-path^="00"], [data-path^="10"], [data-path^="20"], [data-path^="30"], [data-path^="40"], [data-path^="50"], [data-path^="60"], [data-path^="70"], [data-path^="80"], [data-path^="90"]) { color: var(--color-accent); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="01"], [data-path^="11"], [data-path^="21"], [data-path^="31"], [data-path^="41"], [data-path^="51"], [data-path^="61"], [data-path^="71"], [data-path^="81"], [data-path^="91"]) { color: var(--color-blue); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="02"], [data-path^="12"], [data-path^="22"], [data-path^="32"], [data-path^="42"], [data-path^="52"], [data-path^="62"], [data-path^="72"], [data-path^="82"], [data-path^="92"]) { color: var(--color-purple); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="03"], [data-path^="13"], [data-path^="23"], [data-path^="33"], [data-path^="43"], [data-path^="53"], [data-path^="63"], [data-path^="73"], [data-path^="83"], [data-path^="93"]) { color: var(--color-pink); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="04"], [data-path^="14"], [data-path^="24"], [data-path^="34"], [data-path^="44"], [data-path^="54"], [data-path^="64"], [data-path^="74"], [data-path^="84"], [data-path^="94"]) { color: var(--color-red); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="05"], [data-path^="15"], [data-path^="25"], [data-path^="35"], [data-path^="45"], [data-path^="55"], [data-path^="65"], [data-path^="75"], [data-path^="85"], [data-path^="95"]) { color: var(--color-orange); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="06"], [data-path^="16"], [data-path^="26"], [data-path^="36"], [data-path^="46"], [data-path^="56"], [data-path^="66"], [data-path^="76"], [data-path^="86"], [data-path^="96"]) { color: var(--color-yellow); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="07"], [data-path^="17"], [data-path^="27"], [data-path^="37"], [data-path^="47"], [data-path^="57"], [data-path^="67"], [data-path^="77"], [data-path^="87"], [data-path^="97"]) { color: var(--color-green); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="08"], [data-path^="18"], [data-path^="28"], [data-path^="38"], [data-path^="48"], [data-path^="58"], [data-path^="68"], [data-path^="78"], [data-path^="88"], [data-path^="98"]) { color: var(--color-cyan); }
+body.hp-numbered-folders .nav-folder-title:is([data-path^="09"], [data-path^="19"], [data-path^="29"], [data-path^="39"], [data-path^="49"], [data-path^="59"], [data-path^="69"], [data-path^="79"], [data-path^="89"], [data-path^="99"]) { color: var(--text-muted); }
+
+/* ── 10. Outline pane ────────────────────────────────────── */
 .workspace-leaf-content[data-type="outline"] .tree-item-self {
   border-radius: 4px;
   transition: box-shadow 0.15s ease, background-color 0.15s ease;
@@ -665,7 +925,7 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
   min-width: var(--hp-right-sidebar-min, 0px);
 }
 
-/* ── 9. Tabs, command palette and modals ───────────────────────── */
+/* ── 11. Tabs, command palette and modals ───────────────────────── */
 .workspace-tab-header.is-active .workspace-tab-header-inner {
   box-shadow: inset 0 2px 0 var(--hp-accent-line);
 }
@@ -690,7 +950,95 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
   border-color: var(--hp-border-2);
 }
 
-/* ── 10. CRT scanlines (optional) ─────────────────────────────────────── */
+/* ── 12. Mermaid diagrams in the theme colors ────────────────────────────
+   Flowcharts, sequence diagrams and mindmaps; other diagram types keep the
+   Obsidian look. Obsidian draws Mermaid in light colors and inverts them in
+   dark mode, and Mermaid sets its colors with id selectors inside each SVG,
+   hence filter: none and !important. */
+.theme-dark .mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) {
+  filter: none;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.node :is(rect, circle, ellipse, polygon, path), rect.actor, polygon.labelBox, rect[class^="activation"]) {
+  fill: var(--hp-surface) !important;
+  stroke: var(--color-accent) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) :is(.nodeLabel, .label) {
+  color: var(--hp-text-strong) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(text.actor, .messageText, .noteText, .labelText, .loopText, :is(text.actor, .messageText, .noteText, .labelText, .loopText) > tspan) {
+  fill: var(--hp-text-strong) !important;
+  stroke: none !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.flowchart-link, .messageLine0, .messageLine1, .actor-line, .loopLine) {
+  stroke: var(--hp-muted) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) marker :is(path, circle) {
+  fill: var(--hp-muted) !important;
+  stroke: var(--hp-muted) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.edgeLabel, .labelBkg, .edgeLabel p) {
+  background-color: var(--hp-bg) !important;
+  color: var(--hp-text) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .edgeLabel rect {
+  fill: var(--hp-bg) !important;
+}
+
+/* Subgraphs */
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster rect {
+  fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg)) !important;
+  stroke: var(--hp-accent-line) !important;
+}
+
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster-label .nodeLabel {
+  color: var(--color-accent) !important;
+}
+
+/* Sequence diagram notes */
+.mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) rect.note {
+  fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg)) !important;
+  stroke: var(--color-yellow) !important;
+}
+
+/* Mindmaps: one color per branch, root in the accent */
+.mermaid :is(.section-0, .section-edge-0, .section-8, .section-edge-8) { --hp-branch: var(--color-blue); }
+.mermaid :is(.section-1, .section-edge-1, .section-9, .section-edge-9) { --hp-branch: var(--color-purple); }
+.mermaid :is(.section-2, .section-edge-2, .section-10, .section-edge-10) { --hp-branch: var(--color-pink); }
+.mermaid :is(.section-3, .section-edge-3) { --hp-branch: var(--color-red); }
+.mermaid :is(.section-4, .section-edge-4) { --hp-branch: var(--color-orange); }
+.mermaid :is(.section-5, .section-edge-5) { --hp-branch: var(--color-yellow); }
+.mermaid :is(.section-6, .section-edge-6) { --hp-branch: var(--color-green); }
+.mermaid :is(.section-7, .section-edge-7) { --hp-branch: var(--color-cyan); }
+
+.mermaid > svg[aria-roledescription="mindmap"] .mindmap-node :is(rect, circle, ellipse, polygon, path) {
+  fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg)) !important;
+  stroke: var(--hp-branch, var(--color-accent)) !important;
+}
+
+.mermaid > svg[aria-roledescription="mindmap"] :is(.mindmap-node line, path[class*="section-edge-"]) {
+  stroke: var(--hp-branch, var(--hp-muted)) !important;
+}
+
+/* ── 13. PDFs (optional): dark pages in dark mode ────────────────────────── */
+/* The canvas is inverted (white turns black) and blended with the page
+   background, so the black becomes the theme background */
+.theme-dark.hp-pdf-dark .pdf-container :is(.page, .thumbnail) {
+  background-color: var(--hp-bg);
+}
+
+.theme-dark.hp-pdf-dark .pdf-container :is(.canvasWrapper canvas, .thumbnailImage) {
+  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: lighten;
+}
+
+/* ── 14. CRT scanlines (optional) ─────────────────────────────────────── */
 body.theme-dark.hp-scanlines::after {
   content: "";
   position: fixed;
@@ -706,7 +1054,7 @@ body.theme-dark.hp-scanlines::after {
   );
 }
 
-/* ── 11. Embedded JetBrains Mono ───────────────────────────────────────
+/* ── 15. Embedded JetBrains Mono ───────────────────────────────────────
    JetBrains Mono v2.304, variable weight 100-800, normal and italic, subset
    by src/subset_fonts.py (Latin, punctuation, arrows, box drawing, no ligatures).
    Copyright 2020 The JetBrains Mono Project Authors

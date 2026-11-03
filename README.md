@@ -11,7 +11,11 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 - 💡 **Headings with a soft teal glow** and a thin rule under H1 and H2 to split long notes.
 - 💻 **Code blocks** with a teal border and glow, teal inline code and `<kbd>` keys.
 - 📋 **Tables, callouts, tags, checkboxes and quotes** styled to match.
-- 🗂️ **File explorer and Outline** with a teal bar on hover and on the active item.
+- ☑️ **Extra checkbox states** for pentest checklists: `[!]`, `[?]`, `[/]`, `[-]`, `[k]` and more, each in its own color (see *Checkboxes* below).
+- 🧜 **Mermaid diagrams** (flowcharts, sequence diagrams and mindmaps) in the theme colors.
+- 🗂️ **File explorer and Outline** with a teal bar on hover and on the active item, and optional colors for numbered folders (`00_inbox`, `01_recon`…).
+- 📄 **Dark PDFs** (optional): white PDF pages are inverted so they don't glare in dark mode.
+- 🍬 **Pastel palette** (optional): soft colors on a blue-grey background with a lilac accent, in dark and light mode.
 - 🎯 **Accent color**: change it in *Settings > Appearance > Accent color* and the whole theme follows.
 - ☀️ **Light mode** with accessible contrast for links.
 - 🔒 **No network requests**: everything is bundled in `theme.css`.
@@ -23,6 +27,12 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 | Dark | Light |
 | ---- | ----- |
 | ![Dark](images/dark.png) | ![Light](images/light.png) |
+
+### 🍬 Pastel palette
+
+| Dark | Light |
+| ---- | ----- |
+| ![Pastel dark](images/pastel-dark.png) | ![Pastel light](images/pastel-light.png) |
 
 ### 📱 Mobile
 
@@ -40,14 +50,37 @@ With the [Style Settings](https://github.com/obsidian-community/obsidian-style-s
 
 | Option | Default |
 | ------ | ------- |
+| Palette: *Hackpuntes* or *Pastel* | Hackpuntes |
 | Sans-serif note text | Off (everything in JetBrains Mono) |
 | Sans-serif interface | Off |
 | Disable heading glow | Off |
 | Disable the blinking cursor after the note title (needs *Show inline title*) | Off |
 | CRT scanlines | Off |
+| Color numbered folders: top-level folders starting with two digits get a color from their last digit (those ending in 9, like `99_archive`, are muted) | Off |
+| Dark PDF pages in dark mode (images inside the PDF are inverted too) | Off |
 | Minimum left / right sidebar width | 0 (no minimum) |
 
 The theme works fine without Style Settings; you just get the defaults.
+
+## ☑️ Checkboxes
+
+Besides `[ ]` and `[x]`, any character between the brackets shows up in a box of its own color, like `[!]` in a terminal:
+
+![Pentest checklist with extra checkbox states](images/checkboxes.png)
+
+| Write | Meaning | Write | Meaning |
+| ----- | ------- | ----- | ------- |
+| `- [/]` | In progress (half filled) | `- [k]` | Key, credentials found |
+| `- [-]` | Cancelled or out of scope (struck through) | `- [i]` | Info |
+| `- [!]` | Important, a finding | `- [I]` | Idea |
+| `- [?]` | To check | `- [b]` | Bookmark |
+| `- [>]` | Forwarded, for later | `- [l]` | Location, a host (`@`) |
+| `- [<]` | Scheduled | `- [f]` | Fire, critical |
+| `- [*]` | Star | `- [w]` | Win |
+| `- ["]` | Quote | `- [S]` | Money, bounty (`$`) |
+| `- [u]` / `- [d]` | Up / down (`↑` `↓`) | `- [p]` / `- [c]` | Pro / con (`+` `−`) |
+
+Any other character shows a dot in the accent color.
 
 ## 🛠️ Development
 
@@ -57,7 +90,7 @@ The theme works fine without Style Settings; you just get the defaults.
 python src/build.py
 ```
 
-`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` around 100 KB.
+`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` around 110 KB.
 
 To publish a new version:
 
