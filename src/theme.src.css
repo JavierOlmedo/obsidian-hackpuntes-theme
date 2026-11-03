@@ -14,7 +14,7 @@
      ligatures and weights below 400, to keep theme.css small
      (src/subset_fonts.py).
    - Edit src/theme.src.css and run `python src/build.py`; theme.css is
-     generated.
+     generated, without the comments and indentation of the source.
    ========================================================================== */
 
 /* @settings
@@ -42,6 +42,73 @@ settings:
             -
                 label: Pastel
                 value: hp-palette-pastel
+    -
+        id: hp-pastel-bg
+        title: Pastel background in dark mode
+        description: How dark the Pastel palette is in dark mode. Light mode has a single light background.
+        type: class-select
+        allowEmpty: false
+        default: hp-pastel-deep
+        options:
+            -
+                label: Deep
+                value: hp-pastel-deep
+            -
+                label: Medium
+                value: hp-pastel-medium
+            -
+                label: Soft
+                value: hp-pastel-soft
+    -
+        id: hp-pastel-accent
+        title: Pastel accent
+        description: Accent color of the Pastel palette, in dark and light mode.
+        type: class-select
+        allowEmpty: false
+        default: hp-accent-mauve
+        options:
+            -
+                label: Mauve
+                value: hp-accent-mauve
+            -
+                label: Lavender
+                value: hp-accent-lavender
+            -
+                label: Blue
+                value: hp-accent-blue
+            -
+                label: Sapphire
+                value: hp-accent-sapphire
+            -
+                label: Sky
+                value: hp-accent-sky
+            -
+                label: Teal
+                value: hp-accent-teal
+            -
+                label: Green
+                value: hp-accent-green
+            -
+                label: Yellow
+                value: hp-accent-yellow
+            -
+                label: Peach
+                value: hp-accent-peach
+            -
+                label: Maroon
+                value: hp-accent-maroon
+            -
+                label: Red
+                value: hp-accent-red
+            -
+                label: Pink
+                value: hp-accent-pink
+            -
+                label: Flamingo
+                value: hp-accent-flamingo
+            -
+                label: Rosewater
+                value: hp-accent-rosewater
     -
         id: hp-fonts
         title: Fonts
@@ -501,74 +568,153 @@ body {
 }
 
 /* ── 4. Pastel palette (optional) ──────────────────────────────────────────
-   Soft colors on blue-grey, with a lilac accent. Everything else in the theme
-   reads these variables, so only the colors change. */
+   Soft colors on blue-grey. In dark mode the three backgrounds (Style
+   Settings) only set the --hp-p-* colors and the color channels; the mapping
+   block after them turns those into the theme variables. The accent is HSL so
+   Obsidian can derive its shades, and one picked in Appearance still wins. */
 .theme-dark.hp-palette-pastel {
   --accent-h: 267;
   --accent-s: 84%;
   --accent-l: 81%;
 
-  --hp-bg: #1e1e2e;
-  --hp-sidebar: #181825;
-  --hp-surface: #313244;
-  --hp-code-bg: #181825;
-  --hp-border: #313244;
-  --hp-border-2: #45475a;
-  --hp-text: #bac2de;
-  --hp-text-strong: #cdd6f4;
-  --hp-muted: #9399b2;
-  --hp-faint: #6c7086;
-  --hp-meta: #b4befe;
-  --hp-red: #f38ba8;
+  --hp-p-base: #1e1e2e;
+  --hp-p-mantle: #181825;
+  --hp-p-surface0: #313244;
+  --hp-p-surface1: #45475a;
+  --hp-p-surface2: #585b70;
+  --hp-p-overlay0: #6c7086;
+  --hp-p-overlay1: #7f849c;
+  --hp-p-overlay2: #9399b2;
+  --hp-p-subtext1: #bac2de;
+  --hp-p-text: #cdd6f4;
+  --hp-p-lavender: #b4befe;
+  --hp-p-sky: #89dceb;
+  --color-red-rgb: 243, 139, 168;
+  --color-orange-rgb: 250, 179, 135;
+  --color-yellow-rgb: 249, 226, 175;
+  --color-green-rgb: 166, 227, 161;
+  --color-cyan-rgb: 148, 226, 213;
+  --color-blue-rgb: 137, 180, 250;
+  --color-purple-rgb: 203, 166, 247;
+  --color-pink-rgb: 245, 194, 231;
+}
+
+.theme-dark.hp-palette-pastel.hp-pastel-medium {
+  --accent-h: 267;
+  --accent-s: 83%;
+  --accent-l: 80%;
+
+  --hp-p-base: #24273a;
+  --hp-p-mantle: #1e2030;
+  --hp-p-surface0: #363a4f;
+  --hp-p-surface1: #494d64;
+  --hp-p-surface2: #5b6078;
+  --hp-p-overlay0: #6e738d;
+  --hp-p-overlay1: #8087a2;
+  --hp-p-overlay2: #939ab7;
+  --hp-p-subtext1: #b8c0e0;
+  --hp-p-text: #cad3f5;
+  --hp-p-lavender: #b7bdf8;
+  --hp-p-sky: #91d7e3;
+  --color-red-rgb: 237, 135, 150;
+  --color-orange-rgb: 245, 169, 127;
+  --color-yellow-rgb: 238, 212, 159;
+  --color-green-rgb: 166, 218, 149;
+  --color-cyan-rgb: 139, 213, 202;
+  --color-blue-rgb: 138, 173, 244;
+  --color-purple-rgb: 198, 160, 246;
+  --color-pink-rgb: 245, 189, 230;
+}
+
+.theme-dark.hp-palette-pastel.hp-pastel-soft {
+  --accent-h: 277;
+  --accent-s: 59%;
+  --accent-l: 76%;
+
+  --hp-p-base: #303446;
+  --hp-p-mantle: #292c3c;
+  --hp-p-surface0: #414559;
+  --hp-p-surface1: #51576d;
+  --hp-p-surface2: #626880;
+  --hp-p-overlay0: #737994;
+  --hp-p-overlay1: #838ba7;
+  --hp-p-overlay2: #949cbb;
+  --hp-p-subtext1: #b5bfe2;
+  --hp-p-text: #c6d0f5;
+  --hp-p-lavender: #babbf1;
+  --hp-p-sky: #99d1db;
+  --color-red-rgb: 231, 130, 132;
+  --color-orange-rgb: 239, 159, 118;
+  --color-yellow-rgb: 229, 200, 144;
+  --color-green-rgb: 166, 209, 137;
+  --color-cyan-rgb: 129, 200, 190;
+  --color-blue-rgb: 140, 170, 238;
+  --color-purple-rgb: 202, 158, 230;
+  --color-pink-rgb: 244, 184, 228;
+}
+
+.theme-dark.hp-palette-pastel {
+  --hp-bg: var(--hp-p-base);
+  --hp-sidebar: var(--hp-p-mantle);
+  --hp-surface: var(--hp-p-surface0);
+  --hp-code-bg: var(--hp-p-mantle);
+  --hp-border: var(--hp-p-surface0);
+  --hp-border-2: var(--hp-p-surface1);
+  --hp-text: var(--hp-p-subtext1);
+  --hp-text-strong: var(--hp-p-text);
+  --hp-muted: var(--hp-p-overlay2);
+  --hp-faint: var(--hp-p-overlay0);
+  --hp-meta: var(--hp-p-lavender);
+  --hp-red: var(--color-red);
   --hp-glow: color-mix(in srgb, var(--color-accent) 25%, transparent);
 
-  --color-base-00: #1e1e2e;
-  --color-base-05: #232334;
-  --color-base-10: #28293b;
-  --color-base-20: #2d2e41;
-  --color-base-25: #313244;
-  --color-base-30: #45475a;
-  --color-base-35: #585b70;
-  --color-base-40: #6c7086;
-  --color-base-50: #7f849c;
-  --color-base-60: #9399b2;
-  --color-base-70: #bac2de;
-  --color-base-100: #cdd6f4;
+  --color-base-00: var(--hp-p-base);
+  --color-base-05: color-mix(in srgb, var(--hp-p-surface0) 25%, var(--hp-p-base));
+  --color-base-10: color-mix(in srgb, var(--hp-p-surface0) 50%, var(--hp-p-base));
+  --color-base-20: color-mix(in srgb, var(--hp-p-surface0) 75%, var(--hp-p-base));
+  --color-base-25: var(--hp-p-surface0);
+  --color-base-30: var(--hp-p-surface1);
+  --color-base-35: var(--hp-p-surface2);
+  --color-base-40: var(--hp-p-overlay0);
+  --color-base-50: var(--hp-p-overlay1);
+  --color-base-60: var(--hp-p-overlay2);
+  --color-base-70: var(--hp-p-subtext1);
+  --color-base-100: var(--hp-p-text);
 
-  --color-red-rgb: 243, 139, 168;      --color-red: #f38ba8;
-  --color-orange-rgb: 250, 179, 135;   --color-orange: #fab387;
-  --color-yellow-rgb: 249, 226, 175;   --color-yellow: #f9e2af;
-  --color-green-rgb: 166, 227, 161;    --color-green: #a6e3a1;
-  --color-cyan-rgb: 148, 226, 213;     --color-cyan: #94e2d5;
-  --color-blue-rgb: 137, 180, 250;     --color-blue: #89b4fa;
-  --color-purple-rgb: 203, 166, 247;   --color-purple: #cba6f7;
-  --color-pink-rgb: 245, 194, 231;     --color-pink: #f5c2e7;
-  --callout-default: 203, 166, 247;
+  --color-red: rgb(var(--color-red-rgb));
+  --color-orange: rgb(var(--color-orange-rgb));
+  --color-yellow: rgb(var(--color-yellow-rgb));
+  --color-green: rgb(var(--color-green-rgb));
+  --color-cyan: rgb(var(--color-cyan-rgb));
+  --color-blue: rgb(var(--color-blue-rgb));
+  --color-purple: rgb(var(--color-purple-rgb));
+  --color-pink: rgb(var(--color-pink-rgb));
+  --callout-default: var(--color-purple-rgb);
 
   --interactive-hover: var(--hp-border-2);
-  --text-on-accent: #11111b;
-  --text-on-accent-inverted: #11111b;
-  --checkbox-marker-color: #11111b;
-  --text-highlight-bg: rgba(249, 226, 175, 0.25);
-  --text-highlight-bg-active: rgba(250, 179, 135, 0.4);
+  --text-on-accent: var(--hp-p-mantle);
+  --text-on-accent-inverted: var(--hp-p-mantle);
+  --checkbox-marker-color: var(--hp-p-mantle);
+  --text-highlight-bg: rgba(var(--color-yellow-rgb), 0.25);
+  --text-highlight-bg-active: rgba(var(--color-orange-rgb), 0.4);
 
   --h3-color: hsl(var(--accent-h), 70%, 76%);
   --italic-color: var(--hp-text-strong);
 
-  --code-normal: #cdd6f4;
-  --code-comment: #9399b2;
-  --code-function: #89b4fa;
-  --code-important: #fab387;
-  --code-keyword: #cba6f7;
-  --code-operator: #89dceb;
-  --code-property: #b4befe;
-  --code-punctuation: #9399b2;
-  --code-string: #a6e3a1;
-  --code-tag: #f38ba8;
-  --code-value: #fab387;
+  --code-normal: var(--hp-p-text);
+  --code-comment: var(--hp-p-overlay2);
+  --code-function: var(--color-blue);
+  --code-important: var(--color-orange);
+  --code-keyword: var(--color-purple);
+  --code-operator: var(--hp-p-sky);
+  --code-property: var(--hp-p-lavender);
+  --code-punctuation: var(--hp-p-overlay2);
+  --code-string: var(--color-green);
+  --code-tag: var(--color-red);
+  --code-value: var(--color-orange);
 
-  --graph-node-tag: #fab387;
-  --graph-node-attachment: #89b4fa;
+  --graph-node-tag: var(--color-orange);
+  --graph-node-attachment: var(--color-blue);
 }
 
 .theme-light.hp-palette-pastel {
@@ -633,6 +779,36 @@ body {
   --code-tag: #d20f39;
   --code-value: #c44f0a;
 }
+
+/* Pastel accent (Style Settings). Mauve is the default set above; with the
+   medium and soft backgrounds the other accents use the deep shades. */
+.theme-dark.hp-palette-pastel.hp-accent-lavender { --accent-h: 232; --accent-s: 97%; --accent-l: 85%; }
+.theme-dark.hp-palette-pastel.hp-accent-blue { --accent-h: 217; --accent-s: 92%; --accent-l: 76%; }
+.theme-dark.hp-palette-pastel.hp-accent-sapphire { --accent-h: 198; --accent-s: 76%; --accent-l: 69%; }
+.theme-dark.hp-palette-pastel.hp-accent-sky { --accent-h: 189; --accent-s: 71%; --accent-l: 73%; }
+.theme-dark.hp-palette-pastel.hp-accent-teal { --accent-h: 170; --accent-s: 57%; --accent-l: 73%; }
+.theme-dark.hp-palette-pastel.hp-accent-green { --accent-h: 115; --accent-s: 54%; --accent-l: 76%; }
+.theme-dark.hp-palette-pastel.hp-accent-yellow { --accent-h: 41; --accent-s: 86%; --accent-l: 83%; }
+.theme-dark.hp-palette-pastel.hp-accent-peach { --accent-h: 23; --accent-s: 92%; --accent-l: 75%; }
+.theme-dark.hp-palette-pastel.hp-accent-maroon { --accent-h: 350; --accent-s: 65%; --accent-l: 77%; }
+.theme-dark.hp-palette-pastel.hp-accent-red { --accent-h: 343; --accent-s: 81%; --accent-l: 75%; }
+.theme-dark.hp-palette-pastel.hp-accent-pink { --accent-h: 316; --accent-s: 72%; --accent-l: 86%; }
+.theme-dark.hp-palette-pastel.hp-accent-flamingo { --accent-h: 0; --accent-s: 59%; --accent-l: 88%; }
+.theme-dark.hp-palette-pastel.hp-accent-rosewater { --accent-h: 10; --accent-s: 56%; --accent-l: 91%; }
+
+.theme-light.hp-palette-pastel.hp-accent-lavender { --accent-h: 231; --accent-s: 97%; --accent-l: 72%; }
+.theme-light.hp-palette-pastel.hp-accent-blue { --accent-h: 220; --accent-s: 91%; --accent-l: 54%; }
+.theme-light.hp-palette-pastel.hp-accent-sapphire { --accent-h: 189; --accent-s: 70%; --accent-l: 42%; }
+.theme-light.hp-palette-pastel.hp-accent-sky { --accent-h: 197; --accent-s: 97%; --accent-l: 46%; }
+.theme-light.hp-palette-pastel.hp-accent-teal { --accent-h: 183; --accent-s: 74%; --accent-l: 35%; }
+.theme-light.hp-palette-pastel.hp-accent-green { --accent-h: 109; --accent-s: 58%; --accent-l: 40%; }
+.theme-light.hp-palette-pastel.hp-accent-yellow { --accent-h: 35; --accent-s: 77%; --accent-l: 49%; }
+.theme-light.hp-palette-pastel.hp-accent-peach { --accent-h: 22; --accent-s: 99%; --accent-l: 52%; }
+.theme-light.hp-palette-pastel.hp-accent-maroon { --accent-h: 355; --accent-s: 76%; --accent-l: 59%; }
+.theme-light.hp-palette-pastel.hp-accent-red { --accent-h: 347; --accent-s: 87%; --accent-l: 44%; }
+.theme-light.hp-palette-pastel.hp-accent-pink { --accent-h: 316; --accent-s: 73%; --accent-l: 69%; }
+.theme-light.hp-palette-pastel.hp-accent-flamingo { --accent-h: 0; --accent-s: 60%; --accent-l: 67%; }
+.theme-light.hp-palette-pastel.hp-accent-rosewater { --accent-h: 11; --accent-s: 59%; --accent-l: 67%; }
 
 /* ── 5. Headings: teal with glow, like hackpuntes.com ────────────────────── */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6),

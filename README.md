@@ -15,7 +15,7 @@ A hacker-style theme for [Obsidian](https://obsidian.md), based on the look of [
 - 🧜 **Mermaid diagrams** (flowcharts, sequence diagrams and mindmaps) in the theme colors.
 - 🗂️ **File explorer and Outline** with a teal bar on hover and on the active item, and optional colors for numbered folders (`00_inbox`, `01_recon`…).
 - 📄 **Dark PDFs** (optional): white PDF pages are inverted so they don't glare in dark mode.
-- 🍬 **Pastel palette** (optional): soft colors on a blue-grey background with a lilac accent, in dark and light mode.
+- 🍬 **Pastel palette** (optional): soft colors on a blue-grey background, in dark and light mode, with three dark backgrounds and 14 accent colors to choose from.
 - 🎯 **Accent color**: change it in *Settings > Appearance > Accent color* and the whole theme follows.
 - ☀️ **Light mode** with accessible contrast for links.
 - 🔒 **No network requests**: everything is bundled in `theme.css`.
@@ -51,6 +51,8 @@ With the [Style Settings](https://github.com/obsidian-community/obsidian-style-s
 | Option | Default |
 | ------ | ------- |
 | Palette: *Hackpuntes* or *Pastel* | Hackpuntes |
+| Pastel background in dark mode: *Deep*, *Medium* or *Soft* | Deep |
+| Pastel accent: Mauve, Lavender, Blue, Sapphire, Sky, Teal, Green, Yellow, Peach, Maroon, Red, Pink, Flamingo or Rosewater | Mauve |
 | Sans-serif note text | Off (everything in JetBrains Mono) |
 | Sans-serif interface | Off |
 | Disable heading glow | Off |
@@ -90,7 +92,7 @@ Any other character shows a dot in the accent color.
 python src/build.py
 ```
 
-`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, weights 400 to 800, no ligatures) made with `src/subset_fonts.py`, which keeps `theme.css` under 100 KB.
+`build.py` appends JetBrains Mono (`src/fonts/*.woff2`) to the end of `theme.css` as base64. Those fonts are a subset of the official ones (Latin, punctuation, arrows and box drawing, weights 400 to 800, no ligatures) made with `src/subset_fonts.py`. `theme.css` also leaves out the comments and indentation of `src/theme.src.css`, which keeps it under 100 KB (the Obsidian review warns about larger theme files).
 
 To publish a new version:
 

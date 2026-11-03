@@ -14,7 +14,7 @@
      ligatures and weights below 400, to keep theme.css small
      (src/subset_fonts.py).
    - Edit src/theme.src.css and run `python src/build.py`; theme.css is
-     generated.
+     generated, without the comments and indentation of the source.
    ========================================================================== */
 
 /* @settings
@@ -42,6 +42,73 @@ settings:
             -
                 label: Pastel
                 value: hp-palette-pastel
+    -
+        id: hp-pastel-bg
+        title: Pastel background in dark mode
+        description: How dark the Pastel palette is in dark mode. Light mode has a single light background.
+        type: class-select
+        allowEmpty: false
+        default: hp-pastel-deep
+        options:
+            -
+                label: Deep
+                value: hp-pastel-deep
+            -
+                label: Medium
+                value: hp-pastel-medium
+            -
+                label: Soft
+                value: hp-pastel-soft
+    -
+        id: hp-pastel-accent
+        title: Pastel accent
+        description: Accent color of the Pastel palette, in dark and light mode.
+        type: class-select
+        allowEmpty: false
+        default: hp-accent-mauve
+        options:
+            -
+                label: Mauve
+                value: hp-accent-mauve
+            -
+                label: Lavender
+                value: hp-accent-lavender
+            -
+                label: Blue
+                value: hp-accent-blue
+            -
+                label: Sapphire
+                value: hp-accent-sapphire
+            -
+                label: Sky
+                value: hp-accent-sky
+            -
+                label: Teal
+                value: hp-accent-teal
+            -
+                label: Green
+                value: hp-accent-green
+            -
+                label: Yellow
+                value: hp-accent-yellow
+            -
+                label: Peach
+                value: hp-accent-peach
+            -
+                label: Maroon
+                value: hp-accent-maroon
+            -
+                label: Red
+                value: hp-accent-red
+            -
+                label: Pink
+                value: hp-accent-pink
+            -
+                label: Flamingo
+                value: hp-accent-flamingo
+            -
+                label: Rosewater
+                value: hp-accent-rosewater
     -
         id: hp-fonts
         title: Fonts
@@ -129,666 +196,749 @@ settings:
 
 */
 
-/* ── 1. Fonts and sizes ─────────────────────────────────────────────── */
 body {
-  --hp-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
-  --hp-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+--hp-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
+--hp-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
 
-  --font-text-theme: var(--hp-mono);
-  --font-interface-theme: var(--hp-mono);
-  --font-monospace-theme: var(--hp-mono);
-  --line-height-normal: 1.65;
+--font-text-theme: var(--hp-mono);
+--font-interface-theme: var(--hp-mono);
+--font-monospace-theme: var(--hp-mono);
+--line-height-normal: 1.65;
 
-  --h1-size: 1.75em;
-  --h2-size: 1.45em;
-  --h3-size: 1.25em;
-  --h4-size: 1.1em;
-  --h5-size: 1em;
-  --h6-size: 0.95em;
-  --h1-weight: 800;
-  --h2-weight: 700;
-  --h3-weight: 700;
-  --h4-weight: 600;
-  --h5-weight: 600;
-  --h6-weight: 600;
-  --heading-spacing: 1.6em;
-  --inline-title-size: 1.9em;
-  --inline-title-weight: 800;
+--h1-size: 1.75em;
+--h2-size: 1.45em;
+--h3-size: 1.25em;
+--h4-size: 1.1em;
+--h5-size: 1em;
+--h6-size: 0.95em;
+--h1-weight: 800;
+--h2-weight: 700;
+--h3-weight: 700;
+--h4-weight: 600;
+--h5-weight: 600;
+--h6-weight: 600;
+--heading-spacing: 1.6em;
+--inline-title-size: 1.9em;
+--inline-title-weight: 800;
 
-  --bold-weight: 700;
-  --code-size: 0.9em;
-  --blockquote-border-thickness: 4px;
-  --tag-border-width: 1px;
-  --tag-radius: 4px;
-  --nav-indentation-guide-width: 1px;
-  --indentation-guide-width: 1px;
-  --hp-radius: 6px;
+--bold-weight: 700;
+--code-size: 0.9em;
+--blockquote-border-thickness: 4px;
+--tag-border-width: 1px;
+--tag-radius: 4px;
+--nav-indentation-guide-width: 1px;
+--indentation-guide-width: 1px;
+--hp-radius: 6px;
 }
 
 body.hp-sans {
-  --font-text-theme: var(--hp-sans);
+--font-text-theme: var(--hp-sans);
 }
 
 body.hp-sans-ui {
-  --font-interface-theme: var(--hp-sans);
+--font-interface-theme: var(--hp-sans);
 }
 
-/* No ligatures (also for fallback fonts like Cascadia Code): commands look exactly as typed */
 body {
-  font-variant-ligatures: none;
-  font-feature-settings: "calt" 0, "liga" 0;
+font-variant-ligatures: none;
+font-feature-settings: "calt" 0, "liga" 0;
 }
 
-/* ── 2. Dark palette (hackpuntes dark) ───────────────────────────────── */
 .theme-dark {
-  --accent-h: 170;
-  --accent-s: 100%;
-  --accent-l: 45%;
+--accent-h: 170;
+--accent-s: 100%;
+--accent-l: 45%;
 
-  --hp-bg: #0d1117;
-  --hp-sidebar: #090c10;
-  --hp-surface: #161b22;
-  --hp-code-bg: #161b22;
-  --hp-border: #21262d;
-  --hp-border-2: #30363d;
-  --hp-text: #adbac7;
-  --hp-text-strong: #e6edf3;
-  --hp-muted: #768390;
-  --hp-faint: #545d68;
-  --hp-meta: #58a6a6;
-  --hp-red: #ff5555;
-  --hp-accent-line: color-mix(in srgb, var(--color-accent) 22%, transparent);
-  --hp-code-border: color-mix(in srgb, var(--color-accent) 35%, transparent);
-  --hp-glow: color-mix(in srgb, var(--color-accent) 35%, transparent);
+--hp-bg: #0d1117;
+--hp-sidebar: #090c10;
+--hp-surface: #161b22;
+--hp-code-bg: #161b22;
+--hp-border: #21262d;
+--hp-border-2: #30363d;
+--hp-text: #adbac7;
+--hp-text-strong: #e6edf3;
+--hp-muted: #768390;
+--hp-faint: #545d68;
+--hp-meta: #58a6a6;
+--hp-red: #ff5555;
+--hp-accent-line: color-mix(in srgb, var(--color-accent) 22%, transparent);
+--hp-code-border: color-mix(in srgb, var(--color-accent) 35%, transparent);
+--hp-glow: color-mix(in srgb, var(--color-accent) 35%, transparent);
 
-  --color-base-00: #0d1117;
-  --color-base-05: #11161d;
-  --color-base-10: #161b22;
-  --color-base-20: #1a2029;
-  --color-base-25: #21262d;
-  --color-base-30: #30363d;
-  --color-base-35: #3d444d;
-  --color-base-40: #545d68;
-  --color-base-50: #636e7b;
-  --color-base-60: #768390;
-  --color-base-70: #adbac7;
-  --color-base-100: #e6edf3;
+--color-base-00: #0d1117;
+--color-base-05: #11161d;
+--color-base-10: #161b22;
+--color-base-20: #1a2029;
+--color-base-25: #21262d;
+--color-base-30: #30363d;
+--color-base-35: #3d444d;
+--color-base-40: #545d68;
+--color-base-50: #636e7b;
+--color-base-60: #768390;
+--color-base-70: #adbac7;
+--color-base-100: #e6edf3;
 
-  --color-red-rgb: 255, 123, 114;      --color-red: #ff7b72;
-  --color-orange-rgb: 255, 166, 87;    --color-orange: #ffa657;
-  --color-yellow-rgb: 227, 179, 65;    --color-yellow: #e3b341;
-  --color-green-rgb: 63, 185, 80;      --color-green: #3fb950;
-  --color-cyan-rgb: 57, 197, 207;      --color-cyan: #39c5cf;
-  --color-blue-rgb: 88, 166, 255;      --color-blue: #58a6ff;
-  --color-purple-rgb: 188, 140, 255;   --color-purple: #bc8cff;
-  --color-pink-rgb: 247, 120, 186;     --color-pink: #f778ba;
-  --callout-default: 0, 229, 190;
+--color-red-rgb: 255, 123, 114;      --color-red: #ff7b72;
+--color-orange-rgb: 255, 166, 87;    --color-orange: #ffa657;
+--color-yellow-rgb: 227, 179, 65;    --color-yellow: #e3b341;
+--color-green-rgb: 63, 185, 80;      --color-green: #3fb950;
+--color-cyan-rgb: 57, 197, 207;      --color-cyan: #39c5cf;
+--color-blue-rgb: 88, 166, 255;      --color-blue: #58a6ff;
+--color-purple-rgb: 188, 140, 255;   --color-purple: #bc8cff;
+--color-pink-rgb: 247, 120, 186;     --color-pink: #f778ba;
+--callout-default: 0, 229, 190;
 
-  --background-primary: var(--hp-bg);
-  --background-primary-alt: var(--hp-surface);
-  --background-secondary: var(--hp-sidebar);
-  --background-secondary-alt: var(--hp-bg);
-  --background-modifier-border: var(--hp-border);
-  --background-modifier-border-hover: var(--hp-border-2);
-  --background-modifier-border-focus: var(--color-accent);
-  --background-modifier-hover: color-mix(in srgb, var(--color-accent) 7%, transparent);
-  --background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  --background-modifier-form-field: var(--hp-bg);
+--background-primary: var(--hp-bg);
+--background-primary-alt: var(--hp-surface);
+--background-secondary: var(--hp-sidebar);
+--background-secondary-alt: var(--hp-bg);
+--background-modifier-border: var(--hp-border);
+--background-modifier-border-hover: var(--hp-border-2);
+--background-modifier-border-focus: var(--color-accent);
+--background-modifier-hover: color-mix(in srgb, var(--color-accent) 7%, transparent);
+--background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 12%, transparent);
+--background-modifier-form-field: var(--hp-bg);
 
-  --text-normal: var(--hp-text);
-  --text-muted: var(--hp-muted);
-  --text-faint: var(--hp-faint);
-  --text-accent: var(--color-accent);
-  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
-  --text-on-accent: #0d1117;
-  --text-on-accent-inverted: #0d1117;
-  --text-error: var(--hp-red);
-  --text-selection: color-mix(in srgb, var(--color-accent) 25%, transparent);
-  --text-highlight-bg: rgba(227, 179, 65, 0.28);
-  --text-highlight-bg-active: rgba(255, 166, 87, 0.45);
-  --caret-color: var(--color-accent);
+--text-normal: var(--hp-text);
+--text-muted: var(--hp-muted);
+--text-faint: var(--hp-faint);
+--text-accent: var(--color-accent);
+--text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
+--text-on-accent: #0d1117;
+--text-on-accent-inverted: #0d1117;
+--text-error: var(--hp-red);
+--text-selection: color-mix(in srgb, var(--color-accent) 25%, transparent);
+--text-highlight-bg: rgba(227, 179, 65, 0.28);
+--text-highlight-bg-active: rgba(255, 166, 87, 0.45);
+--caret-color: var(--color-accent);
 
-  --interactive-normal: var(--hp-surface);
-  --interactive-hover: var(--hp-border);
-  --interactive-accent: var(--color-accent);
-  --interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
+--interactive-normal: var(--hp-surface);
+--interactive-hover: var(--hp-border);
+--interactive-accent: var(--color-accent);
+--interactive-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 8%));
 
-  --titlebar-background: var(--hp-sidebar);
-  --titlebar-background-focused: var(--hp-sidebar);
-  --ribbon-background: var(--hp-sidebar);
-  --ribbon-background-collapsed: var(--hp-sidebar);
-  --tab-container-background: var(--hp-sidebar);
-  --tab-background-active: var(--hp-bg);
-  --tab-text-color-focused-active: var(--color-accent);
-  --tab-text-color-focused-active-current: var(--color-accent);
-  --tab-outline-color: var(--hp-border);
-  --divider-color: var(--hp-border);
-  --status-bar-background: var(--hp-sidebar);
-  --status-bar-border-color: var(--hp-border);
-  --status-bar-text-color: var(--hp-meta);
+--titlebar-background: var(--hp-sidebar);
+--titlebar-background-focused: var(--hp-sidebar);
+--ribbon-background: var(--hp-sidebar);
+--ribbon-background-collapsed: var(--hp-sidebar);
+--tab-container-background: var(--hp-sidebar);
+--tab-background-active: var(--hp-bg);
+--tab-text-color-focused-active: var(--color-accent);
+--tab-text-color-focused-active-current: var(--color-accent);
+--tab-outline-color: var(--hp-border);
+--divider-color: var(--hp-border);
+--status-bar-background: var(--hp-sidebar);
+--status-bar-border-color: var(--hp-border);
+--status-bar-text-color: var(--hp-meta);
 
-  --h1-color: var(--color-accent);
-  --h2-color: var(--color-accent);
-  --h3-color: hsl(var(--accent-h), 70%, 52%);
-  --h4-color: var(--hp-meta);
-  --h5-color: var(--hp-text-strong);
-  --h6-color: var(--hp-muted);
-  --inline-title-color: var(--color-accent);
-  --bold-color: var(--hp-text-strong);
-  --italic-color: #cdd9e5;
+--h1-color: var(--color-accent);
+--h2-color: var(--color-accent);
+--h3-color: hsl(var(--accent-h), 70%, 52%);
+--h4-color: var(--hp-meta);
+--h5-color: var(--hp-text-strong);
+--h6-color: var(--hp-muted);
+--inline-title-color: var(--color-accent);
+--bold-color: var(--hp-text-strong);
+--italic-color: #cdd9e5;
 
-  --link-color: var(--color-accent);
-  --link-color-hover: var(--text-accent-hover);
-  --link-external-color: var(--color-accent);
-  --link-external-color-hover: var(--text-accent-hover);
-  --link-unresolved-color: var(--hp-red);
-  --link-unresolved-opacity: 0.8;
-  --link-unresolved-decoration-color: color-mix(in srgb, var(--hp-red) 40%, transparent);
-  --link-decoration: none;
-  --link-decoration-hover: underline;
-  --link-external-decoration: none;
-  --link-external-decoration-hover: underline;
+--link-color: var(--color-accent);
+--link-color-hover: var(--text-accent-hover);
+--link-external-color: var(--color-accent);
+--link-external-color-hover: var(--text-accent-hover);
+--link-unresolved-color: var(--hp-red);
+--link-unresolved-opacity: 0.8;
+--link-unresolved-decoration-color: color-mix(in srgb, var(--hp-red) 40%, transparent);
+--link-decoration: none;
+--link-decoration-hover: underline;
+--link-external-decoration: none;
+--link-external-decoration-hover: underline;
 
-  --code-background: var(--hp-code-bg);
-  --code-normal: #c9d1d9;
-  --code-comment: #768390;
-  --code-function: #d2a8ff;
-  --code-important: #ffa657;
-  --code-keyword: #ff7b72;
-  --code-operator: var(--color-accent);
-  --code-property: #79c0ff;
-  --code-punctuation: #8b949e;
-  --code-string: #a5d6ff;
-  --code-tag: #7ee787;
-  --code-value: #79c0ff;
-  --hp-inline-code: var(--color-accent);
+--code-background: var(--hp-code-bg);
+--code-normal: #c9d1d9;
+--code-comment: #768390;
+--code-function: #d2a8ff;
+--code-important: #ffa657;
+--code-keyword: #ff7b72;
+--code-operator: var(--color-accent);
+--code-property: #79c0ff;
+--code-punctuation: #8b949e;
+--code-string: #a5d6ff;
+--code-tag: #7ee787;
+--code-value: #79c0ff;
+--hp-inline-code: var(--color-accent);
 
-  --blockquote-border-color: var(--color-accent);
-  --blockquote-color: var(--hp-muted);
-  --blockquote-background-color: color-mix(in srgb, var(--color-accent) 4%, transparent);
+--blockquote-border-color: var(--color-accent);
+--blockquote-color: var(--hp-muted);
+--blockquote-background-color: color-mix(in srgb, var(--color-accent) 4%, transparent);
 
-  --table-header-background: var(--hp-surface);
-  --table-header-background-hover: var(--hp-surface);
-  --table-header-color: var(--color-accent);
-  --table-border-color: var(--hp-border);
-  --table-row-background-hover: color-mix(in srgb, var(--color-accent) 4%, transparent);
+--table-header-background: var(--hp-surface);
+--table-header-background-hover: var(--hp-surface);
+--table-header-color: var(--color-accent);
+--table-border-color: var(--hp-border);
+--table-row-background-hover: color-mix(in srgb, var(--color-accent) 4%, transparent);
 
-  --hr-color: var(--hp-accent-line);
-  --list-marker-color: var(--color-accent);
-  --list-marker-color-hover: var(--text-accent-hover);
-  --indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  --indentation-guide-color-active: color-mix(in srgb, var(--color-accent) 35%, transparent);
-  --nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+--hr-color: var(--hp-accent-line);
+--list-marker-color: var(--color-accent);
+--list-marker-color-hover: var(--text-accent-hover);
+--indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+--indentation-guide-color-active: color-mix(in srgb, var(--color-accent) 35%, transparent);
+--nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
 
-  --tag-color: var(--color-accent);
-  --tag-color-hover: var(--text-accent-hover);
-  --tag-background: color-mix(in srgb, var(--color-accent) 8%, transparent);
-  --tag-background-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
-  --tag-border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
-  --tag-border-color-hover: color-mix(in srgb, var(--color-accent) 45%, transparent);
+--tag-color: var(--color-accent);
+--tag-color-hover: var(--text-accent-hover);
+--tag-background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+--tag-background-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
+--tag-border-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
+--tag-border-color-hover: color-mix(in srgb, var(--color-accent) 45%, transparent);
 
-  --checkbox-color: var(--color-accent);
-  --checkbox-color-hover: var(--text-accent-hover);
-  --checkbox-border-color: var(--hp-faint);
-  --checkbox-border-color-hover: var(--color-accent);
-  --checkbox-marker-color: #0d1117;
+--checkbox-color: var(--color-accent);
+--checkbox-color-hover: var(--text-accent-hover);
+--checkbox-border-color: var(--hp-faint);
+--checkbox-border-color-hover: var(--color-accent);
+--checkbox-marker-color: #0d1117;
 
-  --nav-item-color: var(--hp-text);
-  --nav-item-color-hover: var(--hp-text-strong);
-  --nav-item-color-active: var(--color-accent);
-  --nav-item-color-selected: var(--hp-text-strong);
-  --nav-item-background-hover: color-mix(in srgb, var(--color-accent) 6%, transparent);
-  --nav-item-background-active: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  --nav-item-background-selected: color-mix(in srgb, var(--color-accent) 18%, transparent);
+--nav-item-color: var(--hp-text);
+--nav-item-color-hover: var(--hp-text-strong);
+--nav-item-color-active: var(--color-accent);
+--nav-item-color-selected: var(--hp-text-strong);
+--nav-item-background-hover: color-mix(in srgb, var(--color-accent) 6%, transparent);
+--nav-item-background-active: color-mix(in srgb, var(--color-accent) 12%, transparent);
+--nav-item-background-selected: color-mix(in srgb, var(--color-accent) 18%, transparent);
 
-  --scrollbar-bg: transparent;
-  --scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 28%, transparent);
-  --scrollbar-active-thumb-bg: color-mix(in srgb, var(--color-accent) 60%, transparent);
+--scrollbar-bg: transparent;
+--scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 28%, transparent);
+--scrollbar-active-thumb-bg: color-mix(in srgb, var(--color-accent) 60%, transparent);
 
-  --embed-border-left: 2px solid var(--hp-accent-line);
-  --embed-border-start: 2px solid var(--hp-accent-line);
+--embed-border-left: 2px solid var(--hp-accent-line);
+--embed-border-start: 2px solid var(--hp-accent-line);
 
-  --graph-node: var(--hp-muted);
-  --graph-node-focused: var(--color-accent);
-  --graph-node-tag: #ffa657;
-  --graph-node-attachment: #58a6ff;
-  --graph-node-unresolved: var(--hp-faint);
-  --graph-line: var(--hp-border-2);
+--graph-node: var(--hp-muted);
+--graph-node-focused: var(--color-accent);
+--graph-node-tag: #ffa657;
+--graph-node-attachment: #58a6ff;
+--graph-node-unresolved: var(--hp-faint);
+--graph-line: var(--hp-border-2);
 
-  --canvas-background: var(--hp-bg);
-  --canvas-dot-pattern: var(--hp-border-2);
+--canvas-background: var(--hp-bg);
+--canvas-dot-pattern: var(--hp-border-2);
 }
 
-/* ── 3. Light palette (hackpuntes light) ───────────────────────────────── */
 .theme-light {
-  --accent-h: 168;
-  --accent-s: 100%;
-  --accent-l: 36%;
+--accent-h: 168;
+--accent-s: 100%;
+--accent-l: 36%;
 
-  --hp-bg: #ffffff;
-  --hp-sidebar: #f6f8fa;
-  --hp-surface: #f0f6fc;
-  --hp-code-bg: #f6f8fa;
-  --hp-border: #d0d7de;
-  --hp-border-2: #b8c0c8;
-  --hp-text: #2d3640;
-  --hp-text-strong: #0d1117;
-  --hp-muted: #57606a;
-  --hp-faint: #8c959f;
-  --hp-meta: #3d7f7f;
-  --hp-red: #cf222e;
-  --hp-accent-line: color-mix(in srgb, var(--color-accent) 30%, transparent);
-  --hp-code-border: color-mix(in srgb, var(--color-accent) 45%, transparent);
-  --hp-glow: transparent;
+--hp-bg: #ffffff;
+--hp-sidebar: #f6f8fa;
+--hp-surface: #f0f6fc;
+--hp-code-bg: #f6f8fa;
+--hp-border: #d0d7de;
+--hp-border-2: #b8c0c8;
+--hp-text: #2d3640;
+--hp-text-strong: #0d1117;
+--hp-muted: #57606a;
+--hp-faint: #8c959f;
+--hp-meta: #3d7f7f;
+--hp-red: #cf222e;
+--hp-accent-line: color-mix(in srgb, var(--color-accent) 30%, transparent);
+--hp-code-border: color-mix(in srgb, var(--color-accent) 45%, transparent);
+--hp-glow: transparent;
 
-  --color-base-00: #ffffff;
-  --color-base-05: #fbfcfd;
-  --color-base-10: #f6f8fa;
-  --color-base-20: #f0f3f6;
-  --color-base-25: #e6ebf0;
-  --color-base-30: #d0d7de;
-  --color-base-35: #b8c0c8;
-  --color-base-40: #8c959f;
-  --color-base-50: #6e7781;
-  --color-base-60: #57606a;
-  --color-base-70: #424a53;
-  --color-base-100: #2d3640;
+--color-base-00: #ffffff;
+--color-base-05: #fbfcfd;
+--color-base-10: #f6f8fa;
+--color-base-20: #f0f3f6;
+--color-base-25: #e6ebf0;
+--color-base-30: #d0d7de;
+--color-base-35: #b8c0c8;
+--color-base-40: #8c959f;
+--color-base-50: #6e7781;
+--color-base-60: #57606a;
+--color-base-70: #424a53;
+--color-base-100: #2d3640;
 
-  --color-red-rgb: 207, 34, 46;        --color-red: #cf222e;
-  --color-orange-rgb: 188, 76, 0;      --color-orange: #bc4c00;
-  --color-yellow-rgb: 154, 103, 0;     --color-yellow: #9a6700;
-  --color-green-rgb: 26, 127, 55;      --color-green: #1a7f37;
-  --color-cyan-rgb: 27, 124, 131;      --color-cyan: #1b7c83;
-  --color-blue-rgb: 9, 105, 218;       --color-blue: #0969da;
-  --color-purple-rgb: 130, 80, 223;    --color-purple: #8250df;
-  --color-pink-rgb: 191, 57, 137;      --color-pink: #bf3989;
-  --callout-default: 0, 184, 148;
+--color-red-rgb: 207, 34, 46;        --color-red: #cf222e;
+--color-orange-rgb: 188, 76, 0;      --color-orange: #bc4c00;
+--color-yellow-rgb: 154, 103, 0;     --color-yellow: #9a6700;
+--color-green-rgb: 26, 127, 55;      --color-green: #1a7f37;
+--color-cyan-rgb: 27, 124, 131;      --color-cyan: #1b7c83;
+--color-blue-rgb: 9, 105, 218;       --color-blue: #0969da;
+--color-purple-rgb: 130, 80, 223;    --color-purple: #8250df;
+--color-pink-rgb: 191, 57, 137;      --color-pink: #bf3989;
+--callout-default: 0, 184, 148;
 
-  --background-primary: var(--hp-bg);
-  --background-primary-alt: var(--hp-surface);
-  --background-secondary: var(--hp-sidebar);
-  --background-secondary-alt: var(--hp-surface);
-  --background-modifier-border: var(--hp-border);
-  --background-modifier-border-focus: var(--color-accent);
-  --background-modifier-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
-  --background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
+--background-primary: var(--hp-bg);
+--background-primary-alt: var(--hp-surface);
+--background-secondary: var(--hp-sidebar);
+--background-secondary-alt: var(--hp-surface);
+--background-modifier-border: var(--hp-border);
+--background-modifier-border-focus: var(--color-accent);
+--background-modifier-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
+--background-modifier-active-hover: color-mix(in srgb, var(--color-accent) 14%, transparent);
 
-  --text-normal: var(--hp-text);
-  --text-muted: var(--hp-muted);
-  --text-faint: var(--hp-faint);
-  --hp-heading: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 6%));
-  --text-accent: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
-  --text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 14%));
-  --text-on-accent: #0d1117;
-  --text-error: var(--hp-red);
-  --text-selection: color-mix(in srgb, var(--color-accent) 22%, transparent);
-  --text-highlight-bg: rgba(255, 211, 61, 0.45);
-  --caret-color: var(--text-accent);
+--text-normal: var(--hp-text);
+--text-muted: var(--hp-muted);
+--text-faint: var(--hp-faint);
+--hp-heading: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 6%));
+--text-accent: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
+--text-accent-hover: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 14%));
+--text-on-accent: #0d1117;
+--text-error: var(--hp-red);
+--text-selection: color-mix(in srgb, var(--color-accent) 22%, transparent);
+--text-highlight-bg: rgba(255, 211, 61, 0.45);
+--caret-color: var(--text-accent);
 
-  --interactive-accent: var(--color-accent);
-  --titlebar-background: var(--hp-sidebar);
-  --titlebar-background-focused: var(--hp-sidebar);
-  --tab-container-background: var(--hp-sidebar);
-  --tab-background-active: var(--hp-bg);
-  --tab-text-color-focused-active: var(--text-accent);
-  --tab-text-color-focused-active-current: var(--text-accent);
-  --status-bar-background: var(--hp-sidebar);
-  --status-bar-text-color: var(--hp-meta);
+--interactive-accent: var(--color-accent);
+--titlebar-background: var(--hp-sidebar);
+--titlebar-background-focused: var(--hp-sidebar);
+--tab-container-background: var(--hp-sidebar);
+--tab-background-active: var(--hp-bg);
+--tab-text-color-focused-active: var(--text-accent);
+--tab-text-color-focused-active-current: var(--text-accent);
+--status-bar-background: var(--hp-sidebar);
+--status-bar-text-color: var(--hp-meta);
 
-  --h1-color: var(--hp-heading);
-  --h2-color: var(--hp-heading);
-  --h3-color: hsl(var(--accent-h), 70%, 30%);
-  --h4-color: var(--hp-meta);
-  --h5-color: var(--hp-text-strong);
-  --h6-color: var(--hp-muted);
-  --inline-title-color: var(--hp-heading);
-  --bold-color: var(--hp-text-strong);
+--h1-color: var(--hp-heading);
+--h2-color: var(--hp-heading);
+--h3-color: hsl(var(--accent-h), 70%, 30%);
+--h4-color: var(--hp-meta);
+--h5-color: var(--hp-text-strong);
+--h6-color: var(--hp-muted);
+--inline-title-color: var(--hp-heading);
+--bold-color: var(--hp-text-strong);
 
-  --link-color: var(--text-accent);
-  --link-color-hover: var(--text-accent-hover);
-  --link-external-color: var(--text-accent);
-  --link-external-color-hover: var(--text-accent-hover);
-  --link-unresolved-color: var(--hp-red);
-  --link-decoration: none;
-  --link-decoration-hover: underline;
-  --link-external-decoration: none;
-  --link-external-decoration-hover: underline;
+--link-color: var(--text-accent);
+--link-color-hover: var(--text-accent-hover);
+--link-external-color: var(--text-accent);
+--link-external-color-hover: var(--text-accent-hover);
+--link-unresolved-color: var(--hp-red);
+--link-decoration: none;
+--link-decoration-hover: underline;
+--link-external-decoration: none;
+--link-external-decoration-hover: underline;
 
-  --code-background: var(--hp-code-bg);
-  --code-normal: #24292f;
-  --code-comment: #6e7781;
-  --code-function: #8250df;
-  --code-important: #bc4c00;
-  --code-keyword: #cf222e;
-  --code-operator: #00866b;
-  --code-property: #0550ae;
-  --code-punctuation: #57606a;
-  --code-string: #0a3069;
-  --code-tag: #116329;
-  --code-value: #0550ae;
-  --hp-inline-code: #1e3a3a;
+--code-background: var(--hp-code-bg);
+--code-normal: #24292f;
+--code-comment: #6e7781;
+--code-function: #8250df;
+--code-important: #bc4c00;
+--code-keyword: #cf222e;
+--code-operator: #00866b;
+--code-property: #0550ae;
+--code-punctuation: #57606a;
+--code-string: #0a3069;
+--code-tag: #116329;
+--code-value: #0550ae;
+--hp-inline-code: #1e3a3a;
 
-  --blockquote-border-color: var(--color-accent);
-  --blockquote-color: #3d4f5a;
-  --blockquote-background-color: #e8faf7;
+--blockquote-border-color: var(--color-accent);
+--blockquote-color: #3d4f5a;
+--blockquote-background-color: #e8faf7;
 
-  --table-header-background: #e8faf7;
-  --table-header-color: var(--text-accent);
-  --table-border-color: var(--hp-border);
-  --table-row-background-hover: color-mix(in srgb, var(--color-accent) 5%, transparent);
+--table-header-background: #e8faf7;
+--table-header-color: var(--text-accent);
+--table-border-color: var(--hp-border);
+--table-row-background-hover: color-mix(in srgb, var(--color-accent) 5%, transparent);
 
-  --hr-color: var(--hp-accent-line);
-  --list-marker-color: var(--text-accent);
-  --indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
-  --nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+--hr-color: var(--hp-accent-line);
+--list-marker-color: var(--text-accent);
+--indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+--nav-indentation-guide-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
 
-  --tag-color: var(--text-accent);
-  --tag-background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-  --tag-background-hover: color-mix(in srgb, var(--color-accent) 16%, transparent);
-  --tag-border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
+--tag-color: var(--text-accent);
+--tag-background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+--tag-background-hover: color-mix(in srgb, var(--color-accent) 16%, transparent);
+--tag-border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
 
-  --checkbox-color: var(--color-accent);
-  --checkbox-marker-color: #ffffff;
+--checkbox-color: var(--color-accent);
+--checkbox-marker-color: #ffffff;
 
-  --nav-item-color-active: var(--text-accent);
-  --nav-item-background-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
-  --nav-item-background-active: color-mix(in srgb, var(--color-accent) 14%, transparent);
+--nav-item-color-active: var(--text-accent);
+--nav-item-background-hover: color-mix(in srgb, var(--color-accent) 8%, transparent);
+--nav-item-background-active: color-mix(in srgb, var(--color-accent) 14%, transparent);
 
-  --scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 35%, transparent);
-  --scrollbar-active-thumb-bg: var(--color-accent);
-  --embed-border-left: 2px solid var(--hp-accent-line);
-  --embed-border-start: 2px solid var(--hp-accent-line);
+--scrollbar-thumb-bg: color-mix(in srgb, var(--color-accent) 35%, transparent);
+--scrollbar-active-thumb-bg: var(--color-accent);
+--embed-border-left: 2px solid var(--hp-accent-line);
+--embed-border-start: 2px solid var(--hp-accent-line);
 }
 
-/* ── 4. Pastel palette (optional) ──────────────────────────────────────────
-   Soft colors on blue-grey, with a lilac accent. Everything else in the theme
-   reads these variables, so only the colors change. */
 .theme-dark.hp-palette-pastel {
-  --accent-h: 267;
-  --accent-s: 84%;
-  --accent-l: 81%;
+--accent-h: 267;
+--accent-s: 84%;
+--accent-l: 81%;
 
-  --hp-bg: #1e1e2e;
-  --hp-sidebar: #181825;
-  --hp-surface: #313244;
-  --hp-code-bg: #181825;
-  --hp-border: #313244;
-  --hp-border-2: #45475a;
-  --hp-text: #bac2de;
-  --hp-text-strong: #cdd6f4;
-  --hp-muted: #9399b2;
-  --hp-faint: #6c7086;
-  --hp-meta: #b4befe;
-  --hp-red: #f38ba8;
-  --hp-glow: color-mix(in srgb, var(--color-accent) 25%, transparent);
+--hp-p-base: #1e1e2e;
+--hp-p-mantle: #181825;
+--hp-p-surface0: #313244;
+--hp-p-surface1: #45475a;
+--hp-p-surface2: #585b70;
+--hp-p-overlay0: #6c7086;
+--hp-p-overlay1: #7f849c;
+--hp-p-overlay2: #9399b2;
+--hp-p-subtext1: #bac2de;
+--hp-p-text: #cdd6f4;
+--hp-p-lavender: #b4befe;
+--hp-p-sky: #89dceb;
+--color-red-rgb: 243, 139, 168;
+--color-orange-rgb: 250, 179, 135;
+--color-yellow-rgb: 249, 226, 175;
+--color-green-rgb: 166, 227, 161;
+--color-cyan-rgb: 148, 226, 213;
+--color-blue-rgb: 137, 180, 250;
+--color-purple-rgb: 203, 166, 247;
+--color-pink-rgb: 245, 194, 231;
+}
 
-  --color-base-00: #1e1e2e;
-  --color-base-05: #232334;
-  --color-base-10: #28293b;
-  --color-base-20: #2d2e41;
-  --color-base-25: #313244;
-  --color-base-30: #45475a;
-  --color-base-35: #585b70;
-  --color-base-40: #6c7086;
-  --color-base-50: #7f849c;
-  --color-base-60: #9399b2;
-  --color-base-70: #bac2de;
-  --color-base-100: #cdd6f4;
+.theme-dark.hp-palette-pastel.hp-pastel-medium {
+--accent-h: 267;
+--accent-s: 83%;
+--accent-l: 80%;
 
-  --color-red-rgb: 243, 139, 168;      --color-red: #f38ba8;
-  --color-orange-rgb: 250, 179, 135;   --color-orange: #fab387;
-  --color-yellow-rgb: 249, 226, 175;   --color-yellow: #f9e2af;
-  --color-green-rgb: 166, 227, 161;    --color-green: #a6e3a1;
-  --color-cyan-rgb: 148, 226, 213;     --color-cyan: #94e2d5;
-  --color-blue-rgb: 137, 180, 250;     --color-blue: #89b4fa;
-  --color-purple-rgb: 203, 166, 247;   --color-purple: #cba6f7;
-  --color-pink-rgb: 245, 194, 231;     --color-pink: #f5c2e7;
-  --callout-default: 203, 166, 247;
+--hp-p-base: #24273a;
+--hp-p-mantle: #1e2030;
+--hp-p-surface0: #363a4f;
+--hp-p-surface1: #494d64;
+--hp-p-surface2: #5b6078;
+--hp-p-overlay0: #6e738d;
+--hp-p-overlay1: #8087a2;
+--hp-p-overlay2: #939ab7;
+--hp-p-subtext1: #b8c0e0;
+--hp-p-text: #cad3f5;
+--hp-p-lavender: #b7bdf8;
+--hp-p-sky: #91d7e3;
+--color-red-rgb: 237, 135, 150;
+--color-orange-rgb: 245, 169, 127;
+--color-yellow-rgb: 238, 212, 159;
+--color-green-rgb: 166, 218, 149;
+--color-cyan-rgb: 139, 213, 202;
+--color-blue-rgb: 138, 173, 244;
+--color-purple-rgb: 198, 160, 246;
+--color-pink-rgb: 245, 189, 230;
+}
 
-  --interactive-hover: var(--hp-border-2);
-  --text-on-accent: #11111b;
-  --text-on-accent-inverted: #11111b;
-  --checkbox-marker-color: #11111b;
-  --text-highlight-bg: rgba(249, 226, 175, 0.25);
-  --text-highlight-bg-active: rgba(250, 179, 135, 0.4);
+.theme-dark.hp-palette-pastel.hp-pastel-soft {
+--accent-h: 277;
+--accent-s: 59%;
+--accent-l: 76%;
 
-  --h3-color: hsl(var(--accent-h), 70%, 76%);
-  --italic-color: var(--hp-text-strong);
+--hp-p-base: #303446;
+--hp-p-mantle: #292c3c;
+--hp-p-surface0: #414559;
+--hp-p-surface1: #51576d;
+--hp-p-surface2: #626880;
+--hp-p-overlay0: #737994;
+--hp-p-overlay1: #838ba7;
+--hp-p-overlay2: #949cbb;
+--hp-p-subtext1: #b5bfe2;
+--hp-p-text: #c6d0f5;
+--hp-p-lavender: #babbf1;
+--hp-p-sky: #99d1db;
+--color-red-rgb: 231, 130, 132;
+--color-orange-rgb: 239, 159, 118;
+--color-yellow-rgb: 229, 200, 144;
+--color-green-rgb: 166, 209, 137;
+--color-cyan-rgb: 129, 200, 190;
+--color-blue-rgb: 140, 170, 238;
+--color-purple-rgb: 202, 158, 230;
+--color-pink-rgb: 244, 184, 228;
+}
 
-  --code-normal: #cdd6f4;
-  --code-comment: #9399b2;
-  --code-function: #89b4fa;
-  --code-important: #fab387;
-  --code-keyword: #cba6f7;
-  --code-operator: #89dceb;
-  --code-property: #b4befe;
-  --code-punctuation: #9399b2;
-  --code-string: #a6e3a1;
-  --code-tag: #f38ba8;
-  --code-value: #fab387;
+.theme-dark.hp-palette-pastel {
+--hp-bg: var(--hp-p-base);
+--hp-sidebar: var(--hp-p-mantle);
+--hp-surface: var(--hp-p-surface0);
+--hp-code-bg: var(--hp-p-mantle);
+--hp-border: var(--hp-p-surface0);
+--hp-border-2: var(--hp-p-surface1);
+--hp-text: var(--hp-p-subtext1);
+--hp-text-strong: var(--hp-p-text);
+--hp-muted: var(--hp-p-overlay2);
+--hp-faint: var(--hp-p-overlay0);
+--hp-meta: var(--hp-p-lavender);
+--hp-red: var(--color-red);
+--hp-glow: color-mix(in srgb, var(--color-accent) 25%, transparent);
 
-  --graph-node-tag: #fab387;
-  --graph-node-attachment: #89b4fa;
+--color-base-00: var(--hp-p-base);
+--color-base-05: color-mix(in srgb, var(--hp-p-surface0) 25%, var(--hp-p-base));
+--color-base-10: color-mix(in srgb, var(--hp-p-surface0) 50%, var(--hp-p-base));
+--color-base-20: color-mix(in srgb, var(--hp-p-surface0) 75%, var(--hp-p-base));
+--color-base-25: var(--hp-p-surface0);
+--color-base-30: var(--hp-p-surface1);
+--color-base-35: var(--hp-p-surface2);
+--color-base-40: var(--hp-p-overlay0);
+--color-base-50: var(--hp-p-overlay1);
+--color-base-60: var(--hp-p-overlay2);
+--color-base-70: var(--hp-p-subtext1);
+--color-base-100: var(--hp-p-text);
+
+--color-red: rgb(var(--color-red-rgb));
+--color-orange: rgb(var(--color-orange-rgb));
+--color-yellow: rgb(var(--color-yellow-rgb));
+--color-green: rgb(var(--color-green-rgb));
+--color-cyan: rgb(var(--color-cyan-rgb));
+--color-blue: rgb(var(--color-blue-rgb));
+--color-purple: rgb(var(--color-purple-rgb));
+--color-pink: rgb(var(--color-pink-rgb));
+--callout-default: var(--color-purple-rgb);
+
+--interactive-hover: var(--hp-border-2);
+--text-on-accent: var(--hp-p-mantle);
+--text-on-accent-inverted: var(--hp-p-mantle);
+--checkbox-marker-color: var(--hp-p-mantle);
+--text-highlight-bg: rgba(var(--color-yellow-rgb), 0.25);
+--text-highlight-bg-active: rgba(var(--color-orange-rgb), 0.4);
+
+--h3-color: hsl(var(--accent-h), 70%, 76%);
+--italic-color: var(--hp-text-strong);
+
+--code-normal: var(--hp-p-text);
+--code-comment: var(--hp-p-overlay2);
+--code-function: var(--color-blue);
+--code-important: var(--color-orange);
+--code-keyword: var(--color-purple);
+--code-operator: var(--hp-p-sky);
+--code-property: var(--hp-p-lavender);
+--code-punctuation: var(--hp-p-overlay2);
+--code-string: var(--color-green);
+--code-tag: var(--color-red);
+--code-value: var(--color-orange);
+
+--graph-node-tag: var(--color-orange);
+--graph-node-attachment: var(--color-blue);
 }
 
 .theme-light.hp-palette-pastel {
-  --accent-h: 266;
-  --accent-s: 85%;
-  --accent-l: 58%;
+--accent-h: 266;
+--accent-s: 85%;
+--accent-l: 58%;
 
-  --hp-bg: #eff1f5;
-  --hp-sidebar: #e6e9ef;
-  --hp-surface: #dce0e8;
-  --hp-code-bg: #e6e9ef;
-  --hp-border: #ccd0da;
-  --hp-border-2: #bcc0cc;
-  --hp-text: #5c5f77;
-  --hp-text-strong: #4c4f69;
-  --hp-muted: #6c6f85;
-  --hp-faint: #9ca0b0;
-  --hp-meta: #1e66f5;
-  --hp-red: #d20f39;
+--hp-bg: #eff1f5;
+--hp-sidebar: #e6e9ef;
+--hp-surface: #dce0e8;
+--hp-code-bg: #e6e9ef;
+--hp-border: #ccd0da;
+--hp-border-2: #bcc0cc;
+--hp-text: #5c5f77;
+--hp-text-strong: #4c4f69;
+--hp-muted: #6c6f85;
+--hp-faint: #9ca0b0;
+--hp-meta: #1e66f5;
+--hp-red: #d20f39;
 
-  --color-base-00: #eff1f5;
-  --color-base-05: #eaedf2;
-  --color-base-10: #e6e9ef;
-  --color-base-20: #e1e4eb;
-  --color-base-25: #dce0e8;
-  --color-base-30: #ccd0da;
-  --color-base-35: #bcc0cc;
-  --color-base-40: #9ca0b0;
-  --color-base-50: #8c8fa1;
-  --color-base-60: #6c6f85;
-  --color-base-70: #5c5f77;
-  --color-base-100: #4c4f69;
+--color-base-00: #eff1f5;
+--color-base-05: #eaedf2;
+--color-base-10: #e6e9ef;
+--color-base-20: #e1e4eb;
+--color-base-25: #dce0e8;
+--color-base-30: #ccd0da;
+--color-base-35: #bcc0cc;
+--color-base-40: #9ca0b0;
+--color-base-50: #8c8fa1;
+--color-base-60: #6c6f85;
+--color-base-70: #5c5f77;
+--color-base-100: #4c4f69;
 
-  --color-red-rgb: 210, 15, 57;        --color-red: #d20f39;
-  --color-orange-rgb: 254, 100, 11;    --color-orange: #fe640b;
-  --color-yellow-rgb: 223, 142, 29;    --color-yellow: #df8e1d;
-  --color-green-rgb: 64, 160, 43;      --color-green: #40a02b;
-  --color-cyan-rgb: 23, 146, 153;      --color-cyan: #179299;
-  --color-blue-rgb: 30, 102, 245;      --color-blue: #1e66f5;
-  --color-purple-rgb: 136, 57, 239;    --color-purple: #8839ef;
-  --color-pink-rgb: 234, 118, 203;     --color-pink: #ea76cb;
-  --callout-default: 136, 57, 239;
+--color-red-rgb: 210, 15, 57;        --color-red: #d20f39;
+--color-orange-rgb: 254, 100, 11;    --color-orange: #fe640b;
+--color-yellow-rgb: 223, 142, 29;    --color-yellow: #df8e1d;
+--color-green-rgb: 64, 160, 43;      --color-green: #40a02b;
+--color-cyan-rgb: 23, 146, 153;      --color-cyan: #179299;
+--color-blue-rgb: 30, 102, 245;      --color-blue: #1e66f5;
+--color-purple-rgb: 136, 57, 239;    --color-purple: #8839ef;
+--color-pink-rgb: 234, 118, 203;     --color-pink: #ea76cb;
+--callout-default: 136, 57, 239;
 
-  --text-on-accent: #eff1f5;
-  --text-highlight-bg: rgba(223, 142, 29, 0.25);
+--text-on-accent: #eff1f5;
+--text-highlight-bg: rgba(223, 142, 29, 0.25);
 
-  --blockquote-color: var(--hp-text);
-  --blockquote-background-color: color-mix(in srgb, var(--color-accent) 6%, var(--hp-bg));
-  --table-header-background: color-mix(in srgb, var(--color-accent) 8%, var(--hp-bg));
-  --hp-inline-code: var(--text-accent);
+--blockquote-color: var(--hp-text);
+--blockquote-background-color: color-mix(in srgb, var(--color-accent) 6%, var(--hp-bg));
+--table-header-background: color-mix(in srgb, var(--color-accent) 8%, var(--hp-bg));
+--hp-inline-code: var(--text-accent);
 
-  /* Darker than the pastel tones so code stays readable on a light background */
-  --code-normal: #4c4f69;
-  --code-comment: #7c7f93;
-  --code-function: #1e66f5;
-  --code-important: #c44f0a;
-  --code-keyword: #8839ef;
-  --code-operator: #13777d;
-  --code-property: #5466e0;
-  --code-punctuation: #7c7f93;
-  --code-string: #3d8a2a;
-  --code-tag: #d20f39;
-  --code-value: #c44f0a;
+--code-normal: #4c4f69;
+--code-comment: #7c7f93;
+--code-function: #1e66f5;
+--code-important: #c44f0a;
+--code-keyword: #8839ef;
+--code-operator: #13777d;
+--code-property: #5466e0;
+--code-punctuation: #7c7f93;
+--code-string: #3d8a2a;
+--code-tag: #d20f39;
+--code-value: #c44f0a;
 }
 
-/* ── 5. Headings: teal with glow, like hackpuntes.com ────────────────────── */
+.theme-dark.hp-palette-pastel.hp-accent-lavender { --accent-h: 232; --accent-s: 97%; --accent-l: 85%; }
+.theme-dark.hp-palette-pastel.hp-accent-blue { --accent-h: 217; --accent-s: 92%; --accent-l: 76%; }
+.theme-dark.hp-palette-pastel.hp-accent-sapphire { --accent-h: 198; --accent-s: 76%; --accent-l: 69%; }
+.theme-dark.hp-palette-pastel.hp-accent-sky { --accent-h: 189; --accent-s: 71%; --accent-l: 73%; }
+.theme-dark.hp-palette-pastel.hp-accent-teal { --accent-h: 170; --accent-s: 57%; --accent-l: 73%; }
+.theme-dark.hp-palette-pastel.hp-accent-green { --accent-h: 115; --accent-s: 54%; --accent-l: 76%; }
+.theme-dark.hp-palette-pastel.hp-accent-yellow { --accent-h: 41; --accent-s: 86%; --accent-l: 83%; }
+.theme-dark.hp-palette-pastel.hp-accent-peach { --accent-h: 23; --accent-s: 92%; --accent-l: 75%; }
+.theme-dark.hp-palette-pastel.hp-accent-maroon { --accent-h: 350; --accent-s: 65%; --accent-l: 77%; }
+.theme-dark.hp-palette-pastel.hp-accent-red { --accent-h: 343; --accent-s: 81%; --accent-l: 75%; }
+.theme-dark.hp-palette-pastel.hp-accent-pink { --accent-h: 316; --accent-s: 72%; --accent-l: 86%; }
+.theme-dark.hp-palette-pastel.hp-accent-flamingo { --accent-h: 0; --accent-s: 59%; --accent-l: 88%; }
+.theme-dark.hp-palette-pastel.hp-accent-rosewater { --accent-h: 10; --accent-s: 56%; --accent-l: 91%; }
+
+.theme-light.hp-palette-pastel.hp-accent-lavender { --accent-h: 231; --accent-s: 97%; --accent-l: 72%; }
+.theme-light.hp-palette-pastel.hp-accent-blue { --accent-h: 220; --accent-s: 91%; --accent-l: 54%; }
+.theme-light.hp-palette-pastel.hp-accent-sapphire { --accent-h: 189; --accent-s: 70%; --accent-l: 42%; }
+.theme-light.hp-palette-pastel.hp-accent-sky { --accent-h: 197; --accent-s: 97%; --accent-l: 46%; }
+.theme-light.hp-palette-pastel.hp-accent-teal { --accent-h: 183; --accent-s: 74%; --accent-l: 35%; }
+.theme-light.hp-palette-pastel.hp-accent-green { --accent-h: 109; --accent-s: 58%; --accent-l: 40%; }
+.theme-light.hp-palette-pastel.hp-accent-yellow { --accent-h: 35; --accent-s: 77%; --accent-l: 49%; }
+.theme-light.hp-palette-pastel.hp-accent-peach { --accent-h: 22; --accent-s: 99%; --accent-l: 52%; }
+.theme-light.hp-palette-pastel.hp-accent-maroon { --accent-h: 355; --accent-s: 76%; --accent-l: 59%; }
+.theme-light.hp-palette-pastel.hp-accent-red { --accent-h: 347; --accent-s: 87%; --accent-l: 44%; }
+.theme-light.hp-palette-pastel.hp-accent-pink { --accent-h: 316; --accent-s: 73%; --accent-l: 69%; }
+.theme-light.hp-palette-pastel.hp-accent-flamingo { --accent-h: 0; --accent-s: 60%; --accent-l: 67%; }
+.theme-light.hp-palette-pastel.hp-accent-rosewater { --accent-h: 11; --accent-s: 59%; --accent-l: 67%; }
+
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
 .markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6),
 .inline-title {
-  letter-spacing: 0.02em;
+letter-spacing: 0.02em;
 }
 
 .theme-dark:not(.hp-no-glow) .markdown-rendered :is(h1, h2),
 .theme-dark:not(.hp-no-glow) .markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2):not(.cm-formatting),
 .theme-dark:not(.hp-no-glow) .inline-title {
-  text-shadow: 0 0 8px var(--hp-glow);
+text-shadow: 0 0 8px var(--hp-glow);
 }
 
 .theme-dark:not(.hp-no-glow) .markdown-rendered h3,
 .theme-dark:not(.hp-no-glow) .markdown-source-view.mod-cm6 .cm-header-3:not(.cm-formatting) {
-  text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 20%, transparent);
+text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 
-/* Thin rule under H1/H2 to split long notes */
 .markdown-rendered h1,
 .markdown-rendered h2 {
-  padding-bottom: 0.25em;
-  border-bottom: 1px solid var(--hp-accent-line);
+padding-bottom: 0.25em;
+border-bottom: 1px solid var(--hp-accent-line);
 }
 
 .markdown-source-view.mod-cm6 .cm-line:is(.HyperMD-header-1, .HyperMD-header-2) {
-  padding-bottom: 0.2em;
-  border-bottom: 1px solid var(--hp-accent-line);
+padding-bottom: 0.2em;
+border-bottom: 1px solid var(--hp-accent-line);
 }
 
-/* Blinking █ cursor after the note title (like the blog posts) */
 body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
-  content: "\2588";
-  color: var(--color-accent);
-  margin-left: 6px;
-  font-weight: 400;
-  opacity: 0.85;
-  animation: hp-blink 1.1s step-end infinite;
+content: "\2588";
+color: var(--color-accent);
+margin-left: 6px;
+font-weight: 400;
+opacity: 0.85;
+animation: hp-blink 1.1s step-end infinite;
 }
 
 @keyframes hp-blink {
-  50% { opacity: 0; }
+50% { opacity: 0; }
 }
 
-/* ── 6. Code blocks: teal border and soft glow ────────────────────── */
 .markdown-rendered pre {
-  border: 1px solid var(--hp-code-border);
-  border-radius: var(--hp-radius);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 8%, transparent);
+border: 1px solid var(--hp-code-border);
+border-radius: var(--hp-radius);
+box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
 .markdown-rendered pre code {
-  color: var(--code-normal);
+color: var(--code-normal);
 }
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock {
-  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border);
+box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border);
 }
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
-  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 1px 0 var(--hp-code-border);
-  border-top-left-radius: var(--hp-radius);
-  border-top-right-radius: var(--hp-radius);
+box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 1px 0 var(--hp-code-border);
+border-top-left-radius: var(--hp-radius);
+border-top-right-radius: var(--hp-radius);
 }
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-end {
-  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 -1px 0 var(--hp-code-border);
-  border-bottom-left-radius: var(--hp-radius);
-  border-bottom-right-radius: var(--hp-radius);
+box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 -1px 0 var(--hp-code-border);
+border-bottom-left-radius: var(--hp-radius);
+border-bottom-right-radius: var(--hp-radius);
 }
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin.HyperMD-codeblock-end {
-  box-shadow: inset 0 0 0 1px var(--hp-code-border);
+box-shadow: inset 0 0 0 1px var(--hp-code-border);
 }
 
-/* Copy button and language label */
 .markdown-rendered pre .copy-code-button,
 .markdown-source-view.mod-cm6 .code-block-flair {
-  color: var(--color-accent);
+color: var(--color-accent);
 }
 
 .markdown-rendered pre .copy-code-button:hover {
-  background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
+background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
-/* Inline code: teal on a very soft teal background */
 .markdown-rendered :not(pre) > code {
-  color: var(--hp-inline-code);
-  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
-  border-radius: 3px;
-  padding: 0.05em 0.35em;
+color: var(--hp-inline-code);
+background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+border-radius: 3px;
+padding: 0.05em 0.35em;
 }
 
 .markdown-source-view.mod-cm6 .cm-inline-code {
-  color: var(--hp-inline-code);
-  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+color: var(--hp-inline-code);
+background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
 .markdown-source-view.mod-cm6 .cm-inline-code.cm-formatting-code {
-  color: var(--text-faint);
+color: var(--text-faint);
 }
 
-/* <kbd> keys */
 .markdown-rendered kbd {
-  font-family: var(--font-monospace);
-  color: var(--color-accent);
-  background: var(--hp-surface);
-  border: 1px solid var(--hp-border-2);
-  border-bottom-width: 3px;
-  border-radius: 4px;
-  padding: 0.05em 0.4em;
-  font-size: 0.85em;
+font-family: var(--font-monospace);
+color: var(--color-accent);
+background: var(--hp-surface);
+border: 1px solid var(--hp-border-2);
+border-bottom-width: 3px;
+border-radius: 4px;
+padding: 0.05em 0.4em;
+font-size: 0.85em;
 }
 
-/* ── 7. Quotes, tables, highlights ─────────────────────────────────────── */
 .markdown-rendered blockquote {
-  border-radius: 0 4px 4px 0;
-  padding: 0.6em 1em;
+border-radius: 0 4px 4px 0;
+padding: 0.6em 1em;
 }
 
 .markdown-rendered table {
-  border-radius: var(--hp-radius);
+border-radius: var(--hp-radius);
 }
 
 .markdown-rendered thead th {
-  border-bottom: 1px solid var(--hp-accent-line);
-  font-weight: 700;
+border-bottom: 1px solid var(--hp-accent-line);
+font-weight: 700;
 }
 
 .markdown-rendered mark,
 .markdown-source-view.mod-cm6 .cm-highlight {
-  color: var(--hp-text-strong);
-  border-radius: 2px;
+color: var(--hp-text-strong);
+border-radius: 2px;
 }
 
-/* Very subtle active line in the editor */
 .markdown-source-view.mod-cm6 .cm-line.cm-active:not(.HyperMD-codeblock) {
-  background-color: color-mix(in srgb, var(--color-accent) 3%, transparent);
+background-color: color-mix(in srgb, var(--color-accent) 3%, transparent);
 }
 
 .markdown-source-view.mod-cm6 .cm-cursor {
-  border-left-width: 2px;
+border-left-width: 2px;
 }
 
-/* Callouts with a thin border in their own color */
 .callout {
-  border: 1px solid rgba(var(--callout-color), 0.25);
-  border-left-width: 3px;
+border: 1px solid rgba(var(--callout-color), 0.25);
+border-left-width: 3px;
 }
 
-/* ── 8. Checkboxes: [!] [?] [/] [-] and friends ──────────────────────────
-   Any state other than [x] shows its character (or a symbol) in a box of its
-   own color, like [!] in a terminal. Obsidian puts data-task on the list item
-   (reading view) or on the line (editor), not on the checkbox itself. */
 :is(li, .HyperMD-task-line)[data-task] { --hp-task: initial; --hp-task-glyph: initial; }
 :is(li, .HyperMD-task-line)[data-task="!"] { --hp-task: var(--color-red); --hp-task-glyph: "!"; }
 :is(li, .HyperMD-task-line)[data-task="?"] { --hp-task: var(--color-yellow); --hp-task-glyph: "?"; }
@@ -812,77 +962,71 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
 :is(li, .HyperMD-task-line)[data-task="S"] { --hp-task: var(--color-green); --hp-task-glyph: "$"; }
 
 :is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
-    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
-    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked {
-  border-color: var(--hp-task, var(--color-accent));
-  background-color: color-mix(in srgb, var(--hp-task, var(--color-accent)) 18%, transparent);
+li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+.HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked {
+border-color: var(--hp-task, var(--color-accent));
+background-color: color-mix(in srgb, var(--hp-task, var(--color-accent)) 18%, transparent);
 }
 
 :is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
-    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
-    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::after {
-  content: none;
+li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+.HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::after {
+content: none;
 }
 
-/* Obsidian draws the tick in ::after (hidden above), the glyph goes in ::before */
 :is(li:not([data-task="x"], [data-task="X"]) > .task-list-item-checkbox,
-    li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
-    .HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::before {
-  content: var(--hp-task-glyph, "\2022");
-  position: absolute;
-  inset: 0;
-  color: var(--hp-task, var(--color-accent));
-  font-family: var(--font-monospace);
-  font-size: calc(var(--checkbox-size) * 0.72);
-  font-weight: 800;
-  font-style: normal;
-  line-height: calc(var(--checkbox-size) - 2px);
-  text-align: center;
+li:not([data-task="x"], [data-task="X"]) > p > .task-list-item-checkbox,
+.HyperMD-task-line:not([data-task="x"], [data-task="X"]) .task-list-item-checkbox):checked::before {
+content: var(--hp-task-glyph, "\2022");
+position: absolute;
+inset: 0;
+color: var(--hp-task, var(--color-accent));
+font-family: var(--font-monospace);
+font-size: calc(var(--checkbox-size) * 0.72);
+font-weight: 800;
+font-style: normal;
+line-height: calc(var(--checkbox-size) - 2px);
+text-align: center;
 }
 
-/* [/] in progress: half filled */
 :is(li[data-task="/"] > .task-list-item-checkbox,
-    li[data-task="/"] > p > .task-list-item-checkbox,
-    .HyperMD-task-line[data-task="/"] .task-list-item-checkbox):checked {
-  background-image: linear-gradient(to right, var(--hp-task) 50%, transparent 50%);
+li[data-task="/"] > p > .task-list-item-checkbox,
+.HyperMD-task-line[data-task="/"] .task-list-item-checkbox):checked {
+background-image: linear-gradient(to right, var(--hp-task) 50%, transparent 50%);
 }
 
-/* [-] cancelled: struck through like [x] */
 ul > li.task-list-item[data-task="-"],
 .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="-"] {
-  text-decoration: var(--checklist-done-decoration);
-  color: var(--checklist-done-color);
+text-decoration: var(--checklist-done-decoration);
+color: var(--checklist-done-color);
 }
 
-/* ── 9. File explorer: teal bar on hover ──── */
 .nav-files-container > div > .nav-folder > .nav-folder-title {
-  color: var(--hp-text-strong);
-  font-weight: 600;
+color: var(--hp-text-strong);
+font-weight: 600;
 }
 
 .nav-file-title,
 .nav-folder-title {
-  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .nav-file-title:hover,
 .nav-folder-title:hover {
-  box-shadow: inset 2px 0 0 var(--hp-accent-line);
+box-shadow: inset 2px 0 0 var(--hp-accent-line);
 }
 
 .nav-file-title.is-active {
-  box-shadow: inset 2px 0 0 var(--color-accent);
+box-shadow: inset 2px 0 0 var(--color-accent);
 }
 
 .theme-dark .nav-file-title.is-active {
-  text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 30%, transparent);
+text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
-/* Optional: top-level folders named 00_..99_ colored by their last digit
-   (data-path is the full path, so subfolders share the color) */
 body.hp-numbered-folders .nav-folder-title:is([data-path^="0"], [data-path^="1"], [data-path^="2"], [data-path^="3"], [data-path^="4"], [data-path^="5"], [data-path^="6"], [data-path^="7"], [data-path^="8"], [data-path^="9"]) {
-  --nav-collapse-icon-color: currentColor;
-  --nav-collapse-icon-color-collapsed: currentColor;
+--nav-collapse-icon-color: currentColor;
+--nav-collapse-icon-color-collapsed: currentColor;
 }
 
 body.hp-numbered-folders .nav-folder-title:is([data-path^="00"], [data-path^="10"], [data-path^="20"], [data-path^="30"], [data-path^="40"], [data-path^="50"], [data-path^="60"], [data-path^="70"], [data-path^="80"], [data-path^="90"]) { color: var(--color-accent); }
@@ -896,146 +1040,130 @@ body.hp-numbered-folders .nav-folder-title:is([data-path^="07"], [data-path^="17
 body.hp-numbered-folders .nav-folder-title:is([data-path^="08"], [data-path^="18"], [data-path^="28"], [data-path^="38"], [data-path^="48"], [data-path^="58"], [data-path^="68"], [data-path^="78"], [data-path^="88"], [data-path^="98"]) { color: var(--color-cyan); }
 body.hp-numbered-folders .nav-folder-title:is([data-path^="09"], [data-path^="19"], [data-path^="29"], [data-path^="39"], [data-path^="49"], [data-path^="59"], [data-path^="69"], [data-path^="79"], [data-path^="89"], [data-path^="99"]) { color: var(--text-muted); }
 
-/* ── 10. Outline pane ────────────────────────────────────── */
 .workspace-leaf-content[data-type="outline"] .tree-item-self {
-  border-radius: 4px;
-  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+border-radius: 4px;
+transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
-/* Top-level headings stand out from nested ones */
 .workspace-leaf-content[data-type="outline"] div:not(.tree-item-children) > .tree-item > .tree-item-self {
-  color: var(--hp-text-strong);
-  font-weight: 600;
+color: var(--hp-text-strong);
+font-weight: 600;
 }
 
 .workspace-leaf-content[data-type="outline"] .tree-item-children .tree-item-self {
-  color: var(--text-muted);
+color: var(--text-muted);
 }
 
 .workspace-leaf-content[data-type="outline"] .tree-item-self:hover {
-  color: var(--hp-text-strong);
-  box-shadow: inset 2px 0 0 var(--hp-accent-line);
+color: var(--hp-text-strong);
+box-shadow: inset 2px 0 0 var(--hp-accent-line);
 }
 
 .workspace-leaf-content[data-type="outline"] .tree-item-self.is-active {
-  color: var(--color-accent);
-  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  box-shadow: inset 2px 0 0 var(--color-accent);
+color: var(--color-accent);
+background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+box-shadow: inset 2px 0 0 var(--color-accent);
 }
 
-/* Optional minimum sidebar width (desktop, expanded only) */
 body:not(.is-mobile) .workspace-split.mod-sidedock.mod-left-split:not(.is-sidedock-collapsed) {
-  min-width: var(--hp-left-sidebar-min, 0px);
+min-width: var(--hp-left-sidebar-min, 0px);
 }
 
 body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sidedock-collapsed) {
-  min-width: var(--hp-right-sidebar-min, 0px);
+min-width: var(--hp-right-sidebar-min, 0px);
 }
 
-/* ── 11. Tabs, command palette and modals ───────────────────────── */
 .workspace-tab-header.is-active .workspace-tab-header-inner {
-  box-shadow: inset 0 2px 0 var(--hp-accent-line);
+box-shadow: inset 0 2px 0 var(--hp-accent-line);
 }
 
 .mod-root .workspace-tab-header.is-active.mod-active .workspace-tab-header-inner,
 .workspace-tabs.mod-active .workspace-tab-header.is-active .workspace-tab-header-inner {
-  box-shadow: inset 0 2px 0 var(--color-accent);
+box-shadow: inset 0 2px 0 var(--color-accent);
 }
 
 .theme-dark .modal,
 .theme-dark .prompt {
-  border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 24px color-mix(in srgb, var(--color-accent) 8%, transparent);
+border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
+box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 24px color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
 .suggestion-item.is-selected {
-  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
-  box-shadow: inset 2px 0 0 var(--color-accent);
+background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+box-shadow: inset 2px 0 0 var(--color-accent);
 }
 
 .theme-dark .menu {
-  border-color: var(--hp-border-2);
+border-color: var(--hp-border-2);
 }
 
-/* ── 12. Mermaid diagrams in the theme colors ────────────────────────────
-   Obsidian 1.15+ draws diagrams itself and reads these variables. */
 body {
-  --mermaid-surface: var(--hp-surface);
-  --mermaid-surface-alt: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
-  --mermaid-border-color: var(--color-accent);
-  --mermaid-line-color: var(--hp-muted);
-  --mermaid-text-color: var(--hp-text-strong);
-  --mermaid-muted-color: var(--hp-muted);
-  --mermaid-color-1: var(--color-blue);
-  --mermaid-color-2: var(--color-purple);
-  --mermaid-color-3: var(--color-pink);
-  --mermaid-color-4: var(--color-red);
-  --mermaid-color-5: var(--color-orange);
-  --mermaid-color-6: var(--color-yellow);
-  --mermaid-color-7: var(--color-green);
-  --mermaid-color-8: var(--color-cyan);
+--mermaid-surface: var(--hp-surface);
+--mermaid-surface-alt: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
+--mermaid-border-color: var(--color-accent);
+--mermaid-line-color: var(--hp-muted);
+--mermaid-text-color: var(--hp-text-strong);
+--mermaid-muted-color: var(--hp-muted);
+--mermaid-color-1: var(--color-blue);
+--mermaid-color-2: var(--color-purple);
+--mermaid-color-3: var(--color-pink);
+--mermaid-color-4: var(--color-red);
+--mermaid-color-5: var(--color-orange);
+--mermaid-color-6: var(--color-yellow);
+--mermaid-color-7: var(--color-green);
+--mermaid-color-8: var(--color-cyan);
 }
 
-/* Up to 1.14 Obsidian uses Mermaid itself: the rules below cover flowcharts,
-   sequence diagrams and mindmaps, other diagram types keep the Obsidian look.
-   Mermaid is drawn in light colors and inverted in dark mode, hence
-   filter: none. It sets its colors with an id selector inside each SVG:
-   :is(.mermaid, #hp#hp) matches .mermaid but counts as two ids, so it wins
-   without important flags (inline styles from a diagram's own `style` lines
-   still win). */
 .theme-dark .mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) {
-  filter: none;
+filter: none;
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.node :is(rect, circle, ellipse, polygon, path), rect.actor, polygon.labelBox, rect[class^="activation"]) {
-  fill: var(--hp-surface);
-  stroke: var(--color-accent);
+fill: var(--hp-surface);
+stroke: var(--color-accent);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) :is(.nodeLabel, .label) {
-  color: var(--hp-text-strong);
+color: var(--hp-text-strong);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(text.actor, .messageText, .noteText, .labelText, .loopText, :is(text.actor, .messageText, .noteText, .labelText, .loopText) > tspan) {
-  fill: var(--hp-text-strong);
-  stroke: none;
+fill: var(--hp-text-strong);
+stroke: none;
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.flowchart-link, .messageLine0, .messageLine1, .actor-line, .loopLine) {
-  stroke: var(--hp-muted);
+stroke: var(--hp-muted);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) marker :is(path, circle) {
-  fill: var(--hp-muted);
-  stroke: var(--hp-muted);
+fill: var(--hp-muted);
+stroke: var(--hp-muted);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.edgeLabel, .labelBkg, .edgeLabel p) {
-  background-color: var(--hp-bg);
-  color: var(--hp-text);
+background-color: var(--hp-bg);
+color: var(--hp-text);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .edgeLabel rect {
-  fill: var(--hp-bg);
+fill: var(--hp-bg);
 }
 
-/* Subgraphs */
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster rect {
-  fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
-  stroke: var(--hp-accent-line);
+fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
+stroke: var(--hp-accent-line);
 }
 
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster-label .nodeLabel {
-  color: var(--color-accent);
+color: var(--color-accent);
 }
 
-/* Sequence diagram notes */
 :is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) rect.note {
-  fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg));
-  stroke: var(--color-yellow);
+fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg));
+stroke: var(--color-yellow);
 }
 
-/* Mindmaps: one color per branch, root in the accent */
 .mermaid :is(.section-0, .section-edge-0, .section-8, .section-edge-8) { --hp-branch: var(--color-blue); }
 .mermaid :is(.section-1, .section-edge-1, .section-9, .section-edge-9) { --hp-branch: var(--color-purple); }
 .mermaid :is(.section-2, .section-edge-2, .section-10, .section-edge-10) { --hp-branch: var(--color-pink); }
@@ -1046,40 +1174,36 @@ body {
 .mermaid :is(.section-7, .section-edge-7) { --hp-branch: var(--color-cyan); }
 
 :is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] .mindmap-node :is(rect, circle, ellipse, polygon, path) {
-  fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg));
-  stroke: var(--hp-branch, var(--color-accent));
+fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg));
+stroke: var(--hp-branch, var(--color-accent));
 }
 
 :is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] :is(.mindmap-node line, path[class*="section-edge-"]) {
-  stroke: var(--hp-branch, var(--hp-muted));
+stroke: var(--hp-branch, var(--hp-muted));
 }
 
-/* ── 13. PDFs (optional): dark pages in dark mode ────────────────────────── */
-/* The canvas is inverted (white turns black) and blended with the page
-   background, so the black becomes the theme background */
 .theme-dark.hp-pdf-dark .pdf-container :is(.page, .thumbnail) {
-  background-color: var(--hp-bg);
+background-color: var(--hp-bg);
 }
 
 .theme-dark.hp-pdf-dark .pdf-container :is(.canvasWrapper canvas, .thumbnailImage) {
-  filter: invert(1) hue-rotate(180deg);
-  mix-blend-mode: lighten;
+filter: invert(1) hue-rotate(180deg);
+mix-blend-mode: lighten;
 }
 
-/* ── 14. CRT scanlines (optional) ─────────────────────────────────────── */
 body.theme-dark.hp-scanlines::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(0, 0, 0, 0.12) 3px,
-    rgba(0, 0, 0, 0.12) 4px
-  );
+content: "";
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 9999;
+background: repeating-linear-gradient(
+to bottom,
+transparent 0px,
+transparent 3px,
+rgba(0, 0, 0, 0.12) 3px,
+rgba(0, 0, 0, 0.12) 4px
+);
 }
 
 /* ── 15. Embedded JetBrains Mono ───────────────────────────────────────
