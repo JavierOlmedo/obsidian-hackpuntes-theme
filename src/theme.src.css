@@ -31,7 +31,7 @@ settings:
     -
         id: hp-palette
         title: Palette
-        description: Hackpuntes is the teal on black of hackpuntes.com. Pastel uses soft colors on a blue-grey background, in dark and light mode. An accent color picked in Settings > Appearance still wins.
+        description: Hackpuntes is the teal on black of hackpuntes.com. Pastel uses soft colors on a blue-grey background, in dark and light mode. Phosphor green and amber look like an old CRT terminal (dark mode only). An accent color picked in Settings > Appearance still wins.
         type: class-select
         allowEmpty: false
         default: hp-palette-hackpuntes
@@ -42,6 +42,12 @@ settings:
             -
                 label: Pastel
                 value: hp-palette-pastel
+            -
+                label: Phosphor green
+                value: hp-palette-green
+            -
+                label: Phosphor amber
+                value: hp-palette-amber
     -
         id: hp-pastel-bg
         title: Pastel background in dark mode
@@ -150,6 +156,12 @@ settings:
         type: class-toggle
         default: false
     -
+        id: hp-terminal-code
+        title: Code blocks as terminal windows
+        description: Adds a title bar with the three window buttons to code blocks.
+        type: class-toggle
+        default: false
+    -
         id: hp-explorer
         title: File explorer
         type: heading
@@ -193,6 +205,18 @@ settings:
         type: variable-number
         default: 0
         format: px
+    -
+        id: hp-star
+        title: Like Hackpuntes?
+        type: heading
+        level: 2
+        collapsed: false
+    -
+        id: hp-star-text
+        title: Star it on GitHub ⭐
+        description: "A star on [github.com/JavierOlmedo/obsidian-hackpuntes-theme](https://github.com/JavierOlmedo/obsidian-hackpuntes-theme) helps other people find the theme. Ideas and bugs are welcome in the issues."
+        type: info-text
+        markdown: true
 
 */
 
@@ -289,7 +313,6 @@ body {
   --color-blue-rgb: 88, 166, 255;      --color-blue: #58a6ff;
   --color-purple-rgb: 188, 140, 255;   --color-purple: #bc8cff;
   --color-pink-rgb: 247, 120, 186;     --color-pink: #f778ba;
-  --callout-default: 0, 229, 190;
 
   --background-primary: var(--hp-bg);
   --background-primary-alt: var(--hp-surface);
@@ -469,7 +492,6 @@ body {
   --color-blue-rgb: 9, 105, 218;       --color-blue: #0969da;
   --color-purple-rgb: 130, 80, 223;    --color-purple: #8250df;
   --color-pink-rgb: 191, 57, 137;      --color-pink: #bf3989;
-  --callout-default: 0, 184, 148;
 
   --background-primary: var(--hp-bg);
   --background-primary-alt: var(--hp-surface);
@@ -689,7 +711,6 @@ body {
   --color-blue: rgb(var(--color-blue-rgb));
   --color-purple: rgb(var(--color-purple-rgb));
   --color-pink: rgb(var(--color-pink-rgb));
-  --callout-default: var(--color-purple-rgb);
 
   --interactive-hover: var(--hp-border-2);
   --text-on-accent: var(--hp-p-mantle);
@@ -756,7 +777,6 @@ body {
   --color-blue-rgb: 30, 102, 245;      --color-blue: #1e66f5;
   --color-purple-rgb: 136, 57, 239;    --color-purple: #8839ef;
   --color-pink-rgb: 234, 118, 203;     --color-pink: #ea76cb;
-  --callout-default: 136, 57, 239;
 
   --text-on-accent: #eff1f5;
   --text-highlight-bg: rgba(223, 142, 29, 0.25);
@@ -810,7 +830,88 @@ body {
 .theme-light.hp-palette-pastel.hp-accent-flamingo { --accent-h: 0; --accent-s: 60%; --accent-l: 67%; }
 .theme-light.hp-palette-pastel.hp-accent-rosewater { --accent-h: 11; --accent-s: 59%; --accent-l: 67%; }
 
-/* ── 5. Headings: teal with glow, like hackpuntes.com ────────────────────── */
+/* ── 5. Phosphor palettes (optional, dark mode only) ──────────────────────
+   Green or amber on black, like an old CRT terminal; pairs well with the
+   scanlines. Light mode keeps the Hackpuntes light palette. */
+.theme-dark.hp-palette-green {
+  --accent-h: 135;
+  --accent-s: 100%;
+  --accent-l: 55%;
+
+  --hp-bg: #050b07;
+  --hp-sidebar: #030704;
+  --hp-surface: #0b170f;
+  --hp-code-bg: #08120b;
+  --hp-border: #143020;
+  --hp-border-2: #1f4a2e;
+  --hp-text: #8fe3a3;
+  --hp-text-strong: #c6ffd4;
+  --hp-muted: #4f9a63;
+  --hp-faint: #2f6340;
+  --hp-meta: #5fd47e;
+
+  --code-normal: #b4f5c4;
+  --code-comment: #3f7f50;
+  --code-function: #6dff8f;
+  --code-important: #e2ffb0;
+  --code-keyword: #39ff6a;
+  --code-operator: #8affa5;
+  --code-property: #7ee69a;
+  --code-punctuation: #4f9a63;
+  --code-string: #c6f58a;
+  --code-tag: #5dff8a;
+  --code-value: #e2ffb0;
+}
+
+.theme-dark.hp-palette-amber {
+  --accent-h: 40;
+  --accent-s: 100%;
+  --accent-l: 50%;
+
+  --hp-bg: #0c0800;
+  --hp-sidebar: #070500;
+  --hp-surface: #1a1204;
+  --hp-code-bg: #140e02;
+  --hp-border: #33240a;
+  --hp-border-2: #4d3610;
+  --hp-text: #f0c070;
+  --hp-text-strong: #ffe2a8;
+  --hp-muted: #a8782a;
+  --hp-faint: #6b4c17;
+  --hp-meta: #e0a33c;
+
+  --code-normal: #ffd58a;
+  --code-comment: #8a6420;
+  --code-function: #ffc04d;
+  --code-important: #fff0c0;
+  --code-keyword: #ffb000;
+  --code-operator: #ffcc66;
+  --code-property: #f2b45a;
+  --code-punctuation: #a8782a;
+  --code-string: #ffe08a;
+  --code-tag: #ffa31a;
+  --code-value: #fff0c0;
+}
+
+.theme-dark:is(.hp-palette-green, .hp-palette-amber) {
+  --hp-glow: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  --italic-color: var(--hp-text-strong);
+
+  --color-base-00: var(--hp-bg);
+  --color-base-05: color-mix(in srgb, var(--hp-surface) 50%, var(--hp-bg));
+  --color-base-10: var(--hp-surface);
+  --color-base-20: color-mix(in srgb, var(--hp-border) 50%, var(--hp-surface));
+  --color-base-25: var(--hp-border);
+  --color-base-30: var(--hp-border-2);
+  --color-base-35: color-mix(in srgb, var(--hp-faint) 50%, var(--hp-border-2));
+  --color-base-40: var(--hp-faint);
+  --color-base-50: color-mix(in srgb, var(--hp-muted) 50%, var(--hp-faint));
+  --color-base-60: var(--hp-muted);
+  --color-base-70: var(--hp-text);
+  --color-base-100: var(--hp-text-strong);
+}
+
+/* ── 6. Headings: teal with glow, like hackpuntes.com ────────────────────── */
 .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
 .markdown-source-view.mod-cm6 :is(.cm-header-1, .cm-header-2, .cm-header-3, .cm-header-4, .cm-header-5, .cm-header-6),
 .inline-title {
@@ -854,7 +955,7 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   50% { opacity: 0; }
 }
 
-/* ── 6. Code blocks: teal border and soft glow ────────────────────── */
+/* ── 7. Code blocks: teal border and soft glow ────────────────────── */
 .markdown-rendered pre {
   border: 1px solid var(--hp-code-border);
   border-radius: var(--hp-radius);
@@ -883,6 +984,37 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
 
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin.HyperMD-codeblock-end {
   box-shadow: inset 0 0 0 1px var(--hp-code-border);
+}
+
+/* Optional: code blocks as terminal windows, three buttons on a title bar */
+body.hp-terminal-code .markdown-rendered pre {
+  padding-top: 2.7em;
+  background-image: linear-gradient(var(--hp-code-border), var(--hp-code-border));
+  background-size: 100% 1px;
+  background-position: 0 2.1em;
+  background-repeat: no-repeat;
+}
+
+body.hp-terminal-code .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin {
+  position: relative;
+  box-shadow: inset 1px 0 0 var(--hp-code-border), inset -1px 0 0 var(--hp-code-border), inset 0 1px 0 var(--hp-code-border), inset 0 -1px 0 var(--hp-code-border);
+  padding-inline-start: 4.6em;
+}
+
+body.hp-terminal-code :is(.markdown-rendered pre, .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin)::before {
+  content: "";
+  position: absolute;
+  top: 0.75em;
+  left: 1em;
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  background-color: #ff5f57;
+  box-shadow: 1.1em 0 #febc2e, 2.2em 0 #28c840;
+}
+
+body.hp-terminal-code .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock-begin::before {
+  top: calc(50% - 0.325em);
 }
 
 /* Copy button and language label */
@@ -925,7 +1057,7 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   font-size: 0.85em;
 }
 
-/* ── 7. Quotes, tables, highlights ─────────────────────────────────────── */
+/* ── 8. Quotes, tables, highlights ─────────────────────────────────────── */
 .markdown-rendered blockquote {
   border-radius: 0 4px 4px 0;
   padding: 0.6em 1em;
@@ -955,13 +1087,19 @@ body:not(.hp-no-cursor) .inline-title:not(:focus)::after {
   border-left-width: 2px;
 }
 
-/* Callouts with a thin border in their own color */
+/* Callouts with a thin border in their own color; plain ones ([!note]) in
+   the accent. Obsidian takes full colors here, not "r, g, b" channels. */
+body {
+  --callout-default: var(--color-accent);
+  --callout-border-width: 1px;
+  --callout-border-opacity: 0.25;
+}
+
 .callout {
-  border: 1px solid rgba(var(--callout-color), 0.25);
   border-left-width: 3px;
 }
 
-/* ── 8. Checkboxes: [!] [?] [/] [-] and friends ──────────────────────────
+/* ── 9. Checkboxes: [!] [?] [/] [-] and friends ──────────────────────────
    Any state other than [x] shows its character (or a symbol) in a box of its
    own color, like [!] in a terminal. Obsidian puts data-task on the list item
    (reading view) or on the line (editor), not on the checkbox itself. */
@@ -1030,7 +1168,38 @@ ul > li.task-list-item[data-task="-"],
   color: var(--checklist-done-color);
 }
 
-/* ── 9. File explorer: teal bar on hover ──── */
+/* ── 10. Pentest callouts and severity tags ───────────────────────────────
+   > [!vuln], [!exploit], [!creds], [!flag], [!loot], [!recon], [!shell] and
+   [!opsec], each with its own icon and color (Obsidian's Lucide icons). */
+.callout:is([data-callout="vuln"], [data-callout="finding"]) { --callout-color: var(--color-red); --callout-icon: lucide-bug; }
+.callout[data-callout="exploit"] { --callout-color: var(--color-orange); --callout-icon: lucide-zap; }
+.callout:is([data-callout="creds"], [data-callout="credentials"]) { --callout-color: var(--color-yellow); --callout-icon: lucide-key-round; }
+.callout[data-callout="flag"] { --callout-color: var(--color-green); --callout-icon: lucide-flag; }
+.callout[data-callout="loot"] { --callout-color: var(--color-purple); --callout-icon: lucide-gem; }
+.callout:is([data-callout="recon"], [data-callout="enum"]) { --callout-color: var(--color-blue); --callout-icon: lucide-radar; }
+.callout[data-callout="shell"] { --callout-color: var(--color-accent); --callout-icon: lucide-terminal; }
+.callout[data-callout="opsec"] { --callout-color: var(--color-pink); --callout-icon: lucide-eye-off; }
+
+/* #critical #high #medium #low #info (or #critica #alta #media #baja) as
+   pills in the severity colors, in reading view and in the editor */
+:is(a.tag[href="#critical"], a.tag[href="#critica"], .cm-tag-critical, .cm-tag-critica) { --hp-sev: var(--color-purple); }
+:is(a.tag[href="#high"], a.tag[href="#alta"], .cm-tag-high, .cm-tag-alta) { --hp-sev: var(--color-red); }
+:is(a.tag[href="#medium"], a.tag[href="#media"], .cm-tag-medium, .cm-tag-media) { --hp-sev: var(--color-orange); }
+:is(a.tag[href="#low"], a.tag[href="#baja"], .cm-tag-low, .cm-tag-baja) { --hp-sev: var(--color-yellow); }
+:is(a.tag[href="#info"], .cm-tag-info) { --hp-sev: var(--color-blue); }
+
+:is(a.tag:is([href="#critical"], [href="#critica"], [href="#high"], [href="#alta"], [href="#medium"], [href="#media"], [href="#low"], [href="#baja"], [href="#info"]),
+    .cm-hashtag:is(.cm-tag-critical, .cm-tag-critica, .cm-tag-high, .cm-tag-alta, .cm-tag-medium, .cm-tag-media, .cm-tag-low, .cm-tag-baja, .cm-tag-info)) {
+  --tag-color: var(--hp-sev);
+  --tag-color-hover: var(--hp-sev);
+  --tag-background: color-mix(in srgb, var(--hp-sev) 14%, transparent);
+  --tag-background-hover: color-mix(in srgb, var(--hp-sev) 22%, transparent);
+  --tag-border-color: color-mix(in srgb, var(--hp-sev) 40%, transparent);
+  --tag-border-color-hover: color-mix(in srgb, var(--hp-sev) 60%, transparent);
+  font-weight: 700;
+}
+
+/* ── 11. File explorer: teal bar on hover ──── */
 .nav-files-container > div > .nav-folder > .nav-folder-title {
   color: var(--hp-text-strong);
   font-weight: 600;
@@ -1072,7 +1241,7 @@ body.hp-numbered-folders .nav-folder-title:is([data-path^="07"], [data-path^="17
 body.hp-numbered-folders .nav-folder-title:is([data-path^="08"], [data-path^="18"], [data-path^="28"], [data-path^="38"], [data-path^="48"], [data-path^="58"], [data-path^="68"], [data-path^="78"], [data-path^="88"], [data-path^="98"]) { color: var(--color-cyan); }
 body.hp-numbered-folders .nav-folder-title:is([data-path^="09"], [data-path^="19"], [data-path^="29"], [data-path^="39"], [data-path^="49"], [data-path^="59"], [data-path^="69"], [data-path^="79"], [data-path^="89"], [data-path^="99"]) { color: var(--text-muted); }
 
-/* ── 10. Outline pane ────────────────────────────────────── */
+/* ── 12. Outline pane ────────────────────────────────────── */
 .workspace-leaf-content[data-type="outline"] .tree-item-self {
   border-radius: 4px;
   transition: box-shadow 0.15s ease, background-color 0.15s ease;
@@ -1108,7 +1277,7 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
   min-width: var(--hp-right-sidebar-min, 0px);
 }
 
-/* ── 11. Tabs, command palette and modals ───────────────────────── */
+/* ── 13. Tabs, command palette and modals ───────────────────────── */
 .workspace-tab-header.is-active .workspace-tab-header-inner {
   box-shadow: inset 0 2px 0 var(--hp-accent-line);
 }
@@ -1133,8 +1302,9 @@ body:not(.is-mobile) .workspace-split.mod-sidedock.mod-right-split:not(.is-sided
   border-color: var(--hp-border-2);
 }
 
-/* ── 12. Mermaid diagrams in the theme colors ────────────────────────────
-   Obsidian 1.15+ draws diagrams itself and reads these variables. */
+/* ── 14. Mermaid diagrams in the theme colors ────────────────────────────
+   Obsidian 1.15+ draws diagrams itself and reads these variables (older
+   versions keep the default Mermaid look). */
 body {
   --mermaid-surface: var(--hp-surface);
   --mermaid-surface-alt: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
@@ -1152,85 +1322,7 @@ body {
   --mermaid-color-8: var(--color-cyan);
 }
 
-/* Up to 1.14 Obsidian uses Mermaid itself: the rules below cover flowcharts,
-   sequence diagrams and mindmaps, other diagram types keep the Obsidian look.
-   Mermaid is drawn in light colors and inverted in dark mode, hence
-   filter: none. It sets its colors with an id selector inside each SVG:
-   :is(.mermaid, #hp#hp) matches .mermaid but counts as two ids, so it wins
-   without important flags (inline styles from a diagram's own `style` lines
-   still win). */
-.theme-dark .mermaid > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) {
-  filter: none;
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.node :is(rect, circle, ellipse, polygon, path), rect.actor, polygon.labelBox, rect[class^="activation"]) {
-  fill: var(--hp-surface);
-  stroke: var(--color-accent);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"], [aria-roledescription="mindmap"]) :is(.nodeLabel, .label) {
-  color: var(--hp-text-strong);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(text.actor, .messageText, .noteText, .labelText, .loopText, :is(text.actor, .messageText, .noteText, .labelText, .loopText) > tspan) {
-  fill: var(--hp-text-strong);
-  stroke: none;
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.flowchart-link, .messageLine0, .messageLine1, .actor-line, .loopLine) {
-  stroke: var(--hp-muted);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) marker :is(path, circle) {
-  fill: var(--hp-muted);
-  stroke: var(--hp-muted);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) :is(.edgeLabel, .labelBkg, .edgeLabel p) {
-  background-color: var(--hp-bg);
-  color: var(--hp-text);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .edgeLabel rect {
-  fill: var(--hp-bg);
-}
-
-/* Subgraphs */
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster rect {
-  fill: color-mix(in srgb, var(--color-accent) 4%, var(--hp-bg));
-  stroke: var(--hp-accent-line);
-}
-
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) .cluster-label .nodeLabel {
-  color: var(--color-accent);
-}
-
-/* Sequence diagram notes */
-:is(.mermaid, #hp#hp) > svg:is([aria-roledescription^="flowchart"], [aria-roledescription="sequence"]) rect.note {
-  fill: color-mix(in srgb, var(--color-yellow) 14%, var(--hp-bg));
-  stroke: var(--color-yellow);
-}
-
-/* Mindmaps: one color per branch, root in the accent */
-.mermaid :is(.section-0, .section-edge-0, .section-8, .section-edge-8) { --hp-branch: var(--color-blue); }
-.mermaid :is(.section-1, .section-edge-1, .section-9, .section-edge-9) { --hp-branch: var(--color-purple); }
-.mermaid :is(.section-2, .section-edge-2, .section-10, .section-edge-10) { --hp-branch: var(--color-pink); }
-.mermaid :is(.section-3, .section-edge-3) { --hp-branch: var(--color-red); }
-.mermaid :is(.section-4, .section-edge-4) { --hp-branch: var(--color-orange); }
-.mermaid :is(.section-5, .section-edge-5) { --hp-branch: var(--color-yellow); }
-.mermaid :is(.section-6, .section-edge-6) { --hp-branch: var(--color-green); }
-.mermaid :is(.section-7, .section-edge-7) { --hp-branch: var(--color-cyan); }
-
-:is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] .mindmap-node :is(rect, circle, ellipse, polygon, path) {
-  fill: color-mix(in srgb, var(--hp-branch, var(--color-accent)) 18%, var(--hp-bg));
-  stroke: var(--hp-branch, var(--color-accent));
-}
-
-:is(.mermaid, #hp#hp) > svg[aria-roledescription="mindmap"] :is(.mindmap-node line, path[class*="section-edge-"]) {
-  stroke: var(--hp-branch, var(--hp-muted));
-}
-
-/* ── 13. PDFs (optional): dark pages in dark mode ────────────────────────── */
+/* ── 15. PDFs (optional): dark pages in dark mode ────────────────────────── */
 /* The canvas is inverted (white turns black) and blended with the page
    background, so the black becomes the theme background */
 .theme-dark.hp-pdf-dark .pdf-container :is(.page, .thumbnail) {
@@ -1242,7 +1334,7 @@ body {
   mix-blend-mode: lighten;
 }
 
-/* ── 14. CRT scanlines (optional) ─────────────────────────────────────── */
+/* ── 16. CRT scanlines (optional) ─────────────────────────────────────── */
 body.theme-dark.hp-scanlines::after {
   content: "";
   position: fixed;
@@ -1258,7 +1350,7 @@ body.theme-dark.hp-scanlines::after {
   );
 }
 
-/* ── 15. Embedded JetBrains Mono ───────────────────────────────────────
+/* ── 17. Embedded JetBrains Mono ───────────────────────────────────────
    JetBrains Mono v2.304, variable weight 400-800, normal and italic, subset
    by src/subset_fonts.py (Latin, punctuation, arrows, box drawing, no ligatures).
    Copyright 2020 The JetBrains Mono Project Authors

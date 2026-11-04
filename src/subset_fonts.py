@@ -3,7 +3,8 @@
 The full variable fonts are ~115 KB each. Keeping only the characters notes and commands use
 (Latin, punctuation, arrows, a few math signs, box drawing and the full block), dropping the
 code ligatures and the weights below 400 (the theme never uses Thin to Light) brings them down
-to ~20 KB (upright) and ~17 KB (italic, which also skips Latin Extended-A).
+to ~17 KB each. Latin Extended-A (Central European letters such as ł or ő) is left out to keep
+theme.css under 100 KB; those letters fall back to the next monospace font.
 
 Usage (needs `pip install fonttools brotli`):
     python src/subset_fonts.py <JetBrainsMono[wght].woff2> <JetBrainsMono-Italic[wght].woff2>
@@ -20,7 +21,6 @@ from fontTools.varLib.instancer import instantiateVariableFont
 FONTS = Path(__file__).resolve().parent / "fonts"
 TEXT = ("U+0020-007E,U+00A0-00FF,U+2000-206F,U+20AC,U+2122,"
         "U+2190-2193,U+2212,U+2260,U+2264-2265,U+FFFD")
-LATIN_EXT_A = "U+0100-017F"            # Central European letters, only in the upright font
 BOXES = "U+2500-257F,U+2588"           # tree output, tables drawn with lines and the blinking cursor
 FEATURES = "ccmp,locl,mark,mkmk,zero"  # no calt/liga: no ligatures, commands look exactly as typed
 WEIGHTS = (400, 800)                   # build.py declares the same range in @font-face
@@ -39,5 +39,5 @@ def run(src, dst, unicodes):
 
 if __name__ == "__main__":
     regular, italic = map(Path, sys.argv[1:3])
-    run(regular, "JetBrainsMono-wght-subset.woff2", f"{TEXT},{LATIN_EXT_A},{BOXES}")
+    run(regular, "JetBrainsMono-wght-subset.woff2", f"{TEXT},{BOXES}")
     run(italic, "JetBrainsMono-Italic-wght-subset.woff2", TEXT)
